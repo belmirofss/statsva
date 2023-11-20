@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { View } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import { Dialog, Portal, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
+import { DEVELOPMENT_ADDRESS_REDIRECT } from "@env";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { Theme } from "../../theme";
 import { Logo } from "../../components/Logo";
@@ -29,15 +30,14 @@ const discovery = {
 };
 
 export const Login = () => {
-  const { authenticate, isAuthenticating, isErrorOnAuthentication } =
-    useAppContext();
+  const { authenticate, isAuthenticating } = useAppContext();
 
   const [_, response, promptAsync] = useAuthRequest(
     {
       clientId: __DEV__ ? STRAVA_CLIENT_DEVELOPMENT : STRAVA_CLIENT_ID,
       scopes: STRAVA_SCOPES,
       redirectUri: makeRedirectUri({
-        native: STRAVA_REDIRECT,
+        native: __DEV__ ? DEVELOPMENT_ADDRESS_REDIRECT : STRAVA_REDIRECT,
       }),
     },
     discovery

@@ -1,3 +1,4 @@
+import "expo-dev-client";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";

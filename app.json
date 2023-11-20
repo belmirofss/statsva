@@ -19,7 +19,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.yabcompany.statsfy",
+      "package": "com.yabcompany.stastva",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -37,6 +37,27 @@
       "eas": {
         "projectId": "d165a805-b3e5-453b-86a7-9812447f881e"
       }
-    }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d165a805-b3e5-453b-86a7-9812447f881e"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
+        }
+      ]
+    ]
   }
 }
