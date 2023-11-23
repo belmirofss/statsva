@@ -3,7 +3,6 @@ import { View } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { Text } from "react-native-paper";
-import { DEVELOPMENT_ADDRESS_REDIRECT } from "@env";
 import { ScreenContainer } from "../../components/ScreenContainer";
 import { Theme } from "../../theme";
 import { Logo } from "../../components/Logo";
@@ -12,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import {
   AUTHORIZATION_ENDPOINT_STRAVA,
   REVOCATION_ENDPOINT_STRAVA,
-  STRAVA_CLIENT_DEVELOPMENT,
   STRAVA_CLIENT_ID,
   STRAVA_REDIRECT,
   STRAVA_SCOPES,
@@ -20,6 +18,7 @@ import {
 } from "../../constants";
 import { useAppContext } from "../../hooks/useAppContext";
 import { OverlayLoading } from "../../components/OverlayLoading";
+import { STRAVA_CLIENT_SECRET } from "@env";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -34,10 +33,10 @@ export const Login = () => {
 
   const [_, response, promptAsync] = useAuthRequest(
     {
-      clientId: __DEV__ ? STRAVA_CLIENT_DEVELOPMENT : STRAVA_CLIENT_ID,
+      clientId: STRAVA_CLIENT_ID,
       scopes: STRAVA_SCOPES,
       redirectUri: makeRedirectUri({
-        native: __DEV__ ? DEVELOPMENT_ADDRESS_REDIRECT : STRAVA_REDIRECT,
+        native: STRAVA_REDIRECT,
       }),
     },
     discovery
@@ -67,7 +66,7 @@ export const Login = () => {
 
       <View style={{ gap: Theme.space.xs }}>
         <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
-          Hello! Are you looking for your stats?
+          Hello! Are you looking for your stats?{" "}
         </Text>
         <Text variant="titleMedium">
           Connect with your Strava account to see your stats

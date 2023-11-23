@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 import API from "../api";
-import { STRAVA_CLIENT_DEVELOPMENT, STRAVA_CLIENT_ID } from "../constants";
+import { STRAVA_CLIENT_ID } from "../constants";
 import { SummaryAthlete } from "../types";
 import { STRAVA_CLIENT_SECRET } from "@env";
 
@@ -20,7 +20,7 @@ export const useStravaOauthToken = () => {
       {},
       {
         params: {
-          client_id: __DEV__ ? STRAVA_CLIENT_DEVELOPMENT : STRAVA_CLIENT_ID,
+          client_id: STRAVA_CLIENT_ID,
           client_secret:
             STRAVA_CLIENT_SECRET || process.env.STRAVA_CLIENT_SECRET,
           code,
