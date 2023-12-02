@@ -18,7 +18,6 @@ import {
 } from "../../constants";
 import { useAppContext } from "../../hooks/useAppContext";
 import { OverlayLoading } from "../../components/OverlayLoading";
-import { STRAVA_CLIENT_SECRET } from "@env";
 
 WebBrowser.maybeCompleteAuthSession();
 

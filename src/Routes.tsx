@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 const ICON_SIZE = 28;
 
-const BottomTabNavigator = () => {
+const AuthenticatedBottomTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -73,8 +73,8 @@ export const Routes = () => {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="BottomTabNavigator"
-          component={BottomTabNavigator}
+          name="AuthenticatedBottomTabNavigator"
+          component={AuthenticatedBottomTabNavigator}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -3,12 +3,14 @@ import * as SecureStore from "expo-secure-store";
 import { ACCESS_TOKEN_KEY } from "./constants";
 import API from "./api";
 import { useStravaOauthToken } from "./hooks/useStravaOauthToken";
+import { SummaryAthlete } from "./types";
 
 type AppContextData = {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
   isErrorOnAuthentication: boolean;
   adShowed: boolean;
+  me?: SummaryAthlete;
   authenticate: (token: string) => void;
   logout: () => void;
   markAdAsShowed: () => void;
@@ -25,12 +27,15 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [isErrorOnAuthentication, setIsErrorOnAuthentication] = useState(false);
   const [adShowed, setAdShowed] = useState(false);
+  const [me, setMe] = useState<SummaryAthlete>();
 
   const { mutateAsync: performStravaOauthToken } = useStravaOauthToken();
 
   const setUpToken = async (code: string) => {
     const response = await performStravaOauthToken({ code });
-    const { access_token: token } = response.data;
+    console.log(response.data);
+    const { access_token: token, athlete } = response.data;
+    setMe(athlete);
     await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, token);
     API.defaults.headers.common["Authorization"] = "Bearer " + token;
   };
@@ -82,6 +87,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         isAuthenticating,
         isErrorOnAuthentication,
         adShowed,
+        me,
         authenticate,
         logout,
         markAdAsShowed,
