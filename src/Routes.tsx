@@ -13,59 +13,71 @@ const Tab = createBottomTabNavigator();
 
 const ICON_SIZE = 28;
 
+const BottomTabNavigator = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: Theme.colors.primary,
+        tabBarInactiveTintColor: Theme.colors.darken,
+        tabBarShowLabel: false,
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="home"
+              size={ICON_SIZE}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Activities"
+        component={Activities}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="format-list-bulleted"
+              size={ICON_SIZE}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="About"
+        component={About}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="information"
+              size={ICON_SIZE}
+              color={color}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
 export const Routes = () => {
   const { isAuthenticated } = useAppContext();
 
   if (isAuthenticated) {
     return (
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          tabBarActiveTintColor: Theme.colors.primary,
-          tabBarInactiveTintColor: Theme.colors.darken,
-          tabBarShowLabel: false,
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="home"
-                size={ICON_SIZE}
-                color={color}
-              />
-            ),
-          }}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="BottomTabNavigator"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
         />
-        <Tab.Screen
-          name="Activities"
-          component={Activities}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="format-list-bulleted"
-                size={ICON_SIZE}
-                color={color}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="About"
-          component={About}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="information"
-                size={ICON_SIZE}
-                color={color}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      </Stack.Navigator>
     );
   }
 
