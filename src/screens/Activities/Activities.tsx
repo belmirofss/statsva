@@ -6,8 +6,6 @@ import { Error } from "../../components/Error";
 export const Activities = () => {
   const { data, isLoading, isError } = useActivities({ page: 1 });
 
-  console.log(data);
-
   return (
     <ScreenContainer>
       {isLoading && <Loading />}
