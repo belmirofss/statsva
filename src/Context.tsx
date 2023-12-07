@@ -33,7 +33,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   const setUpToken = async (code: string) => {
     const response = await performStravaOauthToken({ code });
-    console.log(response.data);
     const { access_token: token, athlete } = response.data;
     setMe(athlete);
     await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, token);
