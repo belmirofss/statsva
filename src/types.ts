@@ -98,6 +98,7 @@ type ActivityMap = {
 };
 
 export type SummaryActivity = {
+  id: number;
   achievement_count: number;
   average_heartrate: number;
   average_speed: number;

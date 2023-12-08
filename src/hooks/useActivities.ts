@@ -13,7 +13,7 @@ export const useActivities = ({ page }: Props) => {
       API.get<SummaryActivity[]>(`athlete/activities`, {
         params: {
           page,
-          per_page: 30,
+          per_page: 10,
         },
       }),
     {
