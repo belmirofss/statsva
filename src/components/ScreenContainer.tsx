@@ -19,7 +19,7 @@ export const ScreenContainer = ({ children, style = {} }: Props) => {
   const containerStyle = StyleSheet.compose(
     {
       flex: 1,
-      padding: Theme.space.l,
+      padding: Theme.space.m,
     },
     style
   );
