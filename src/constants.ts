@@ -6,5 +6,5 @@ export const REVOCATION_ENDPOINT_STRAVA =
   "https://www.strava.com/oauth/deauthorize";
 export const STRAVA_CLIENT_ID = "116925";
 export const STRAVA_SCOPES = ["activity:read_all"];
-export const STRAVA_REDIRECT = "com.yabcompany.stastva://com.yabcompany.stastva";
+export const STRAVA_REDIRECT = "com.yabcompany.statsva://com.yabcompany.statsva";
 export const STRAVA_API_ENDPOINT = "https://www.strava.com/api/v3";

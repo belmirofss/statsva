@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "com.yabcompany.stastva",
+    "scheme": "com.yabcompany.statsva",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -19,8 +19,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.yabcompany.stastva",
-      "versionCode": 3,
+      "package": "com.yabcompany.statsva",
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#fc4c02"
@@ -30,7 +30,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyB0QlOR3wrn0QWVwfCtYVQZ7Y4y3cNu4hg"
+          "apiKey": "AIzaSyBchnBF3J5FjYhj0NkpLu95VbUPqLXPlIs"
         }
       }
     },
