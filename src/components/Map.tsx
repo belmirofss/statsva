@@ -26,43 +26,51 @@ export const Map = ({ polyline }: Props) => {
         setViewSize(width);
       }}
     >
-      <MapView
-        ref={map}
-        provider={PROVIDER_GOOGLE}
+      <View
         style={{
           width: viewSize,
           height: viewSize,
+          backgroundColor: Theme.colors.placeholder,
         }}
-        showsMyLocationButton={false}
-        showsPointsOfInterest={false}
-        showsCompass={false}
-        showsScale={false}
-        showsIndoors={false}
-        zoomEnabled={false}
-        zoomTapEnabled={false}
-        zoomControlEnabled={false}
-        rotateEnabled={false}
-        scrollEnabled={false}
-        scrollDuringRotateOrZoomEnabled={false}
-        pitchEnabled={false}
-        toolbarEnabled={false}
-        mapType="standard"
-        onMapLoaded={() => {
-          if (map.current) {
-            map.current.fitToCoordinates(coordinates, {
-              edgePadding: { top: 10, right: 10, bottom: 10, left: 10 },
-              animated: false,
-            });
-          }
-        }}
-        customMapStyle={CUSTOM_MAP_STYLE}
       >
-        <Polyline
-          coordinates={coordinates}
-          strokeColor={Theme.colors.primary}
-          strokeWidth={2}
-        />
-      </MapView>
+        <MapView
+          ref={map}
+          provider={PROVIDER_GOOGLE}
+          style={{
+            width: viewSize,
+            height: viewSize,
+          }}
+          showsMyLocationButton={false}
+          showsPointsOfInterest={false}
+          showsCompass={false}
+          showsScale={false}
+          showsIndoors={false}
+          zoomEnabled={false}
+          zoomTapEnabled={false}
+          zoomControlEnabled={false}
+          rotateEnabled={false}
+          scrollEnabled={false}
+          scrollDuringRotateOrZoomEnabled={false}
+          pitchEnabled={false}
+          toolbarEnabled={false}
+          mapType="standard"
+          onMapLoaded={() => {
+            if (map.current) {
+              map.current.fitToCoordinates(coordinates, {
+                edgePadding: { top: 10, right: 10, bottom: 10, left: 10 },
+                animated: false,
+              });
+            }
+          }}
+          customMapStyle={CUSTOM_MAP_STYLE}
+        >
+          <Polyline
+            coordinates={coordinates}
+            strokeColor={Theme.colors.primary}
+            strokeWidth={2}
+          />
+        </MapView>
+      </View>
     </View>
   );
 };

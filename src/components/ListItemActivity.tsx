@@ -3,17 +3,18 @@ import { List, Text } from "react-native-paper";
 import { SummaryActivity } from "../types";
 import { Theme } from "../theme";
 import { Map } from "./Map";
+import React from "react";
 
 type Props = {
   activity: SummaryActivity;
 };
 
-export const ListItemActivity = ({ activity }: Props) => {
+export const ListItemActivity = React.memo(({ activity }: Props) => {
   return (
     <List.Item
       title={() => (
         <View>
-          <Text variant="titleSmall" style={{ fontFamily: Theme.fonts.bold }}>
+          <Text variant="titleMedium" style={{ fontFamily: Theme.fonts.bold }}>
             {activity.name}
           </Text>
         </View>
@@ -30,4 +31,4 @@ export const ListItemActivity = ({ activity }: Props) => {
       }}
     />
   );
-};
+});

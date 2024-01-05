@@ -6,6 +6,8 @@ type Props = {
   page: number;
 };
 
+export const ACTIVITIES_PER_PAGE = 5;
+
 export const useActivities = ({ page }: Props) => {
   return useQuery(
     ["ACTIVITIES", page],
@@ -13,7 +15,7 @@ export const useActivities = ({ page }: Props) => {
       API.get<SummaryActivity[]>(`athlete/activities`, {
         params: {
           page,
-          per_page: 50,
+          per_page: ACTIVITIES_PER_PAGE,
         },
       }),
     {

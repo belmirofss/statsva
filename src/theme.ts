@@ -2,7 +2,8 @@ export const Theme = {
   colors: {
     primary: "#fc4c02",
     contrast: '#fff',
-    darken: '#000'
+    darken: '#000',
+    placeholder: '#eeeeee'
   },
   space: {
     xs: 4,

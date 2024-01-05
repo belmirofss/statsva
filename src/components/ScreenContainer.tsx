@@ -13,9 +13,14 @@ type ViewStyleProp = StyleProp<ViewStyle>;
 type Props = {
   children: ReactNode;
   style?: ViewStyleProp;
+  disableScrollView?: boolean;
 };
 
-export const ScreenContainer = ({ children, style = {} }: Props) => {
+export const ScreenContainer = ({
+  children,
+  style = {},
+  disableScrollView,
+}: Props) => {
   const containerStyle = StyleSheet.compose(
     {
       flex: 1,
@@ -24,9 +29,15 @@ export const ScreenContainer = ({ children, style = {} }: Props) => {
     style
   );
 
+  const renderView = () => <View style={containerStyle}>{children}</View>;
+
+  if (disableScrollView) {
+    return renderView();
+  }
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={containerStyle}>{children}</View>
+      {renderView()}
     </ScrollView>
   );
 };

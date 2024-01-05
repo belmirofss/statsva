@@ -1,31 +1,51 @@
 import { ScreenContainer } from "../../components/ScreenContainer";
-import { useActivities } from "../../hooks/useActivities";
+import { useActivities, ACTIVITIES_PER_PAGE } from "../../hooks/useActivities";
 import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Error";
 import { ListItemActivity } from "../../components/ListItemActivity";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { SummaryActivity } from "../../types";
+import { VirtualizedList } from "react-native";
 
 export const Activities = () => {
   const [page, setPage] = useState(1);
+  const [renderData, setRenderData] = useState<SummaryActivity[]>([]);
+  const [endedUp, setEndedUp] = useState(false);
+
   const { data, isLoading, isError } = useActivities({ page });
-  const {
-    data: nextPageData,
-    isLoading: isLoadingNextPage,
-    isError: isErrorNextPage,
-  } = useActivities({ page: page + 1 });
+
+  useEffect(() => {
+    if (!data?.length) {
+      setEndedUp(true);
+    } else if (!renderData.find((item) => item.id === data[0].id)) {
+      // this prevents to add the same objects again to the array
+      setRenderData((currentRenderData) => [...currentRenderData, ...data]);
+      setEndedUp(false);
+    }
+  }, [data]);
 
   return (
-    <ScreenContainer>
-      {(isLoading || isLoadingNextPage) && <Loading />}
-      {(isError || isErrorNextPage) && <Error />}
+    <ScreenContainer disableScrollView>
+      {isError && <Error />}
 
-      {!isLoading && !isError && !isLoadingNextPage && !isErrorNextPage && (
-        <>
-          {data?.map((item) => (
-            <ListItemActivity key={item.id} activity={item} />
-          ))}
-        </>
+      {!isError && (
+        <VirtualizedList
+          initialNumToRender={ACTIVITIES_PER_PAGE}
+          keyExtractor={(item: SummaryActivity) => `activity_${item.id}`}
+          data={renderData}
+          renderItem={({ item }) => <ListItemActivity activity={item} />}
+          onEndReached={() => {
+            if (!endedUp) {
+              setPage((currentPage) => currentPage + 1);
+            }
+          }}
+          onEndReachedThreshold={0.1}
+          getItemCount={() => renderData.length}
+          getItem={(data, index) => data[index]}
+        />
       )}
+
+      {isLoading && <Loading mode={page === 1 ? "full" : "local"} />}
     </ScreenContainer>
   );
 };

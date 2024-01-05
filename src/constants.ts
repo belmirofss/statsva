@@ -1,5 +1,3 @@
-import { SportType } from "./types";
-
 export const ACCESS_TOKEN_KEY = "Statsva_Access_Token";
 export const AUTHORIZATION_ENDPOINT_STRAVA =
   "https://www.strava.com/oauth/mobile/authorize";
@@ -11,16 +9,6 @@ export const STRAVA_SCOPES = ["activity:read_all"];
 export const STRAVA_REDIRECT =
   "com.yabcompany.statsva://com.yabcompany.statsva";
 export const STRAVA_API_ENDPOINT = "https://www.strava.com/api/v3";
-export const ALLOWED_SPORT_TYPES = [
-  SportType.E_BIKE_RIDE,
-  SportType.HIKE,
-  SportType.RUN,
-  SportType.SWIM,
-  SportType.RIDE,
-  SportType.VIRTUAL_RIDE,
-  SportType.VIRTUAL_RUN,
-  SportType.WALK,
-];
 export const CUSTOM_MAP_STYLE = [
   {
     featureType: "administrative.province",
