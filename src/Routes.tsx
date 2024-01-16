@@ -1,12 +1,13 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Login } from "./screens/Login/Login";
+import { Login } from "./screens/Login";
 import { useAppContext } from "./hooks/useAppContext";
-import { About } from "./screens/About/About";
+import { About } from "./screens/About";
 import { Home } from "./screens/Home/Home";
-import { Activities } from "./screens/Activities/Activities";
+import { Activities } from "./screens/Activities";
 import { Theme } from "./theme";
+import { Account } from "./screens/Account";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,12 +51,12 @@ const AuthenticatedBottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="About"
-        component={About}
+        name="Account"
+        component={Account}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
-              name="information"
+              name="account"
               size={ICON_SIZE}
               color={color}
             />

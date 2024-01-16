@@ -3,10 +3,10 @@ import { View } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { Text } from "react-native-paper";
-import { ScreenContainer } from "../../components/ScreenContainer";
-import { Theme } from "../../theme";
-import { Logo } from "../../components/Logo";
-import { Button } from "../../components/Button";
+import { ScreenContainer } from "../components/ScreenContainer";
+import { Theme } from "../theme";
+import { Logo } from "../components/Logo";
+import { Button } from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import {
   AUTHORIZATION_ENDPOINT_STRAVA,
@@ -15,9 +15,9 @@ import {
   STRAVA_REDIRECT,
   STRAVA_SCOPES,
   TOKEN_ENDPOINT_STRAVA,
-} from "../../constants";
-import { useAppContext } from "../../hooks/useAppContext";
-import { OverlayLoading } from "../../components/OverlayLoading";
+} from "../constants";
+import { useAppContext } from "../hooks/useAppContext";
+import { OverlayLoading } from "../components/OverlayLoading";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -65,10 +65,10 @@ export const Login = () => {
 
       <View style={{ gap: Theme.space.xs }}>
         <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
-          Hello! Are you looking for your stats?{" "}
+          Hello, welcome to Statsva!
         </Text>
         <Text variant="titleMedium">
-          Connect with your Strava account to see your stats
+          Connect with your Strava account to see and share your stats
         </Text>
       </View>
 

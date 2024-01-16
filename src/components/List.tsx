@@ -28,6 +28,10 @@ export const List = <T extends { id: number }>({
     }
   }, [data]);
 
+  if (!renderData.length) {
+    return null;
+  }
+
   return (
     <VirtualizedList
       initialNumToRender={ITEMS_PER_PAGE}

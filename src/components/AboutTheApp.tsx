@@ -1,13 +1,12 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
-import appInfo from "../../../app.json";
-import { ScreenContainer } from "../../components/ScreenContainer";
-import { Theme } from "../../theme";
-import { Logo } from "../../components/Logo";
+import { Logo } from "./Logo";
+import { Theme } from "../theme";
+import appInfo from "../../app.json";
 
-export const About = () => {
+export const AboutTheApp = () => {
   return (
-    <ScreenContainer style={{ gap: Theme.space.s }}>
+    <>
       <View style={{ gap: Theme.space.s }}>
         <Text variant="headlineMedium" style={{ fontFamily: Theme.fonts.bold }}>
           All your data is saved exclusively on your device.
@@ -27,6 +26,6 @@ export const About = () => {
       >
         Version: {appInfo.expo.version}
       </Text>
-    </ScreenContainer>
+    </>
   );
 };

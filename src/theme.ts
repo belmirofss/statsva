@@ -3,7 +3,7 @@ export const Theme = {
     primary: "#fc4c02",
     contrast: '#fff',
     darken: '#000',
-    placeholder: '#eeeeee'
+    placeholder: '#d4d4d4'
   },
   space: {
     xs: 4,
