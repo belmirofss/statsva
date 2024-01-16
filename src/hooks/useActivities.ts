@@ -1,12 +1,11 @@
 import { useQuery } from "react-query";
 import API from "../api";
 import { SummaryActivity } from "../types";
+import { ITEMS_PER_PAGE } from "../constants";
 
 type Props = {
   page: number;
 };
-
-export const ACTIVITIES_PER_PAGE = 5;
 
 export const useActivities = ({ page }: Props) => {
   return useQuery(
@@ -15,7 +14,7 @@ export const useActivities = ({ page }: Props) => {
       API.get<SummaryActivity[]>(`athlete/activities`, {
         params: {
           page,
-          per_page: ACTIVITIES_PER_PAGE,
+          per_page: ITEMS_PER_PAGE,
         },
       }),
     {
