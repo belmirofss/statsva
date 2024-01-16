@@ -18,7 +18,7 @@ const Box = ({ title, content }: { title: string; content: string }) => {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderBottomColor: Theme.colors.placeholder,
+        borderBottomColor: Theme.colors.medium,
         borderBottomWidth: 1,
         paddingBottom: Theme.space.xs,
       }}
