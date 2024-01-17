@@ -179,3 +179,9 @@ export type Activity = SummaryActivity & {
     primary: Photo;
   };
 };
+
+export enum Period {
+  ALL_TIME = "ALL_TIME",
+  YEAR_TO_DATE = "YEAR_TO_DATE",
+  LAST_4_WEEKS = "LAST_4_WEEKS"
+}

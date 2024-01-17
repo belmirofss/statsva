@@ -3,7 +3,7 @@ import * as polylineTool from "@mapbox/polyline";
 import { Theme } from "../theme";
 import { View } from "react-native";
 import { useRef, useState } from "react";
-import { CUSTOM_MAP_STYLE } from "../constants";
+import { CUSTOM_MAP_STYLE } from "../map-style";
 
 type Props = {
   polyline: string;

@@ -9,9 +9,9 @@ export const Theme = {
   space: {
     xs: 4,
     s: 8,
-    m: 16,
-    l: 28,
-    xl: 36,
+    m: 14,
+    l: 26,
+    xl: 34,
   },
   fonts: {
     regular: 'ubuntuRegular',
