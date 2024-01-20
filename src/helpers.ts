@@ -1,12 +1,24 @@
 export function formatToKm(meters: number) {
+    if (!meters) {
+        return "-"
+    }
+
     return (meters / 1000).toFixed(1).concat(" km");
 };
 
 export function formatToM(meters: number) {
+    if (!meters) {
+        return "-"
+    }
+
     return meters.toFixed(0).concat(" m");
 };
 
 export function formatTime(seconds: number) {
+    if (!seconds) {
+        return "-"
+    }
+
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
@@ -19,5 +31,17 @@ export function formatTime(seconds: number) {
 }
 
 export function formatKmPerHour(meters: number, seconds: number) {
-    return formatToKm((meters/seconds) * 3.6 * 1000).concat('/h')
+    if (!meters || !seconds) {
+        return "-"
+    }
+
+    return formatToKm((meters/seconds) * 3600).concat('/h')
+}
+
+export function formatMetersPerHour(meters: number, seconds: number) {
+    if (!meters || !seconds) {
+        return "-"
+    }
+
+    return formatToM((meters/seconds) * 3600).concat('/h')
 }

@@ -9,6 +9,7 @@ import { HomeStatsSection } from "./HomeStatsSection";
 import { HomeStatsSectionContent } from "./HomeStatsSectionContent";
 import {
   formatKmPerHour,
+  formatMetersPerHour,
   formatTime,
   formatToKm,
   formatToM,
@@ -103,7 +104,11 @@ export const HomeStats = ({ stats }: Props) => {
 
         <HomeStatsSectionContent
           text="Average"
-          value={formatKmPerHour(distance, moving_time)}
+          value={
+            sportSelected === SportType.SWIM
+              ? formatMetersPerHour(distance, moving_time)
+              : formatKmPerHour(distance, moving_time)
+          }
         />
 
         {sportSelected !== SportType.SWIM && (
