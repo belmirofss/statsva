@@ -1,9 +1,9 @@
-export function formatToKm(value: number) {
-    return (value / 1000).toFixed(1).concat(" km");
+export function formatToKm(meters: number) {
+    return (meters / 1000).toFixed(1).concat(" km");
 };
 
-export function formatToM(value: number) {
-    return value.toFixed(0).concat(" m");
+export function formatToM(meters: number) {
+    return meters.toFixed(0).concat(" m");
 };
 
 export function formatTime(seconds: number) {
@@ -16,4 +16,8 @@ export function formatTime(seconds: number) {
     const formattedSeconds = remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds;
 
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
+}
+
+export function formatKmPerHour(meters: number, seconds: number) {
+    return formatToKm((meters/seconds) * 3.6 * 1000).concat('/h')
 }

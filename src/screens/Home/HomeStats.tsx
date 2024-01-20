@@ -7,7 +7,12 @@ import { AthleteStats, Period, SportType } from "../../types";
 import { PeriodSelector } from "../../components/PeriodSelector";
 import { HomeStatsSection } from "./HomeStatsSection";
 import { HomeStatsSectionContent } from "./HomeStatsSectionContent";
-import { formatTime, formatToKm, formatToM } from "../../helpers";
+import {
+  formatKmPerHour,
+  formatTime,
+  formatToKm,
+  formatToM,
+} from "../../helpers";
 import { Button } from "../../components/Button";
 import { BikingImg } from "../../components/BikingImg";
 import { RunningImg } from "../../components/RunningImg";
@@ -61,6 +66,9 @@ export const HomeStats = ({ stats }: Props) => {
     Period.LAST_4_WEEKS
   );
 
+  const { distance, moving_time, elevation_gain } =
+    SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](stats);
+
   return (
     <View style={{ display: "flex", gap: Theme.space.l }}>
       <View
@@ -86,14 +94,24 @@ export const HomeStats = ({ stats }: Props) => {
         subTitle={PERIOD_TO_LABEL[periodSelected]}
         renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
       >
+        <HomeStatsSectionContent text="Distance" value={formatToKm(distance)} />
+
         <HomeStatsSectionContent
-          text="Distance"
-          value={formatToKm(
-            SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](
-              stats
-            ).distance
-          )}
+          text="Moving time"
+          value={formatTime(moving_time)}
         />
+
+        <HomeStatsSectionContent
+          text="Average"
+          value={formatKmPerHour(distance, moving_time)}
+        />
+
+        {sportSelected !== SportType.SWIM && (
+          <HomeStatsSectionContent
+            text="Elevation"
+            value={formatToM(elevation_gain)}
+          />
+        )}
 
         {sportSelected === SportType.RIDE &&
           periodSelected === Period.ALL_TIME && (
@@ -102,26 +120,6 @@ export const HomeStats = ({ stats }: Props) => {
               value={formatToKm(stats.biggest_ride_distance)}
             />
           )}
-
-        <HomeStatsSectionContent
-          text="Moving time"
-          value={formatTime(
-            SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](
-              stats
-            ).moving_time
-          )}
-        />
-
-        {sportSelected !== SportType.SWIM && (
-          <HomeStatsSectionContent
-            text="Elevation"
-            value={formatToM(
-              SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][
-                periodSelected
-              ](stats).elevation_gain
-            )}
-          />
-        )}
       </HomeStatsSection>
 
       <Button onPress={() => {}}>Share</Button>
