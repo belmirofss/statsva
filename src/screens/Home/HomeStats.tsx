@@ -15,27 +15,11 @@ import {
   formatToM,
 } from "../../helpers";
 import { Button } from "../../components/Button";
-import { BikingImg } from "../../components/BikingImg";
-import { RunningImg } from "../../components/RunningImg";
-import { SwimmingImg } from "../../components/SwimmingImg";
-
-export const PERIOD_TO_LABEL = {
-  [Period.ALL_TIME]: "All time",
-  [Period.YEAR_TO_DATE]: "This year",
-  [Period.LAST_4_WEEKS]: "Last 4 weeks",
-};
-
-export const SPORT_TYPE_TO_LABEL = {
-  [SportType.RIDE]: "Ride",
-  [SportType.RUN]: "Run",
-  [SportType.SWIM]: "Swim",
-};
-
-export const SPORT_TYPE_TO_ICON = {
-  [SportType.RIDE]: () => <BikingImg />,
-  [SportType.RUN]: () => <RunningImg />,
-  [SportType.SWIM]: () => <SwimmingImg />,
-};
+import {
+  PERIOD_TO_LABEL,
+  SPORT_TYPE_TO_ICON,
+  SPORT_TYPE_TO_LABEL,
+} from "../../constants";
 
 export const SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE = {
   [SportType.RIDE]: {
@@ -71,10 +55,9 @@ export const HomeStats = ({ stats }: Props) => {
     SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](stats);
 
   return (
-    <View style={{ display: "flex", gap: Theme.space.l }}>
+    <View style={{ gap: Theme.space.l }}>
       <View
         style={{
-          display: "flex",
           flexDirection: "row",
           alignItems: "center",
         }}

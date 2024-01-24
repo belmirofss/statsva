@@ -1,9 +1,11 @@
 import { View } from "react-native";
-import { List, Text } from "react-native-paper";
 import { SummaryActivity } from "../types";
 import { Theme } from "../theme";
 import { Map } from "./Map";
 import React from "react";
+import moment from "moment";
+import { SPORT_TYPE_TO_ICON, SPORT_TYPE_TO_LABEL } from "../constants";
+import { ListItemHeader } from "./ListItemHeader";
 
 type Props = {
   activity: SummaryActivity;
@@ -11,24 +13,18 @@ type Props = {
 
 export const ListItemActivity = React.memo(({ activity }: Props) => {
   return (
-    <List.Item
-      title={() => (
-        <View>
-          <Text variant="titleMedium" style={{ fontFamily: Theme.fonts.bold }}>
-            {activity.name}
-          </Text>
-        </View>
-      )}
-      description={() => (
-        <View style={{ marginTop: Theme.space.s }}>
-          <Map polyline={activity.map.summary_polyline} />
-        </View>
-      )}
-      titleNumberOfLines={3}
-      style={{
-        backgroundColor: Theme.colors.contrast,
-        marginBottom: Theme.space.m,
-      }}
-    />
+    <View style={{ marginBottom: Theme.space.xl }}>
+      <View>
+        <ListItemHeader
+          title={SPORT_TYPE_TO_LABEL[activity.sport_type]}
+          subTitle={moment(activity.start_date_local).format("lll")}
+          renderIcon={SPORT_TYPE_TO_ICON[activity.sport_type]}
+        />
+      </View>
+
+      <View style={{ marginTop: Theme.space.s }}>
+        <Map polyline={activity.map.summary_polyline} />
+      </View>
+    </View>
   );
 });

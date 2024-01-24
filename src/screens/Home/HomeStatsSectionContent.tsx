@@ -11,11 +11,10 @@ export const HomeStatsSectionContent = ({ text, value }: Props) => {
   return (
     <View
       style={{
-        display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderBottomColor: Theme.colors.medium,
+        borderBottomColor: Theme.colors.placeholder,
         borderBottomWidth: 1,
         paddingBottom: Theme.space.xs,
       }}

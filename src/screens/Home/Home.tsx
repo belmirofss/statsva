@@ -16,7 +16,7 @@ export const Home = () => {
       {isLoading && <Loading />}
       {isError && <Error />}
       {!isLoading && !isError && stats && (
-        <View style={{ display: "flex", gap: Theme.space.m }}>
+        <View style={{ gap: Theme.space.m }}>
           <HomeStats stats={stats} />
         </View>
       )}
