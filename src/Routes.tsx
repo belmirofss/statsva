@@ -8,6 +8,9 @@ import { Home } from "./screens/Home/Home";
 import { Activities } from "./screens/Activities";
 import { Theme } from "./theme";
 import { Account } from "./screens/Account";
+import { View, Animated } from "react-native";
+import { Text } from "react-native-paper";
+import { ITEMS_PER_PAGE } from "./constants";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

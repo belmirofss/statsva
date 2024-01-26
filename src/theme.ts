@@ -3,8 +3,8 @@ export const Theme = {
     primary: "#fc4c02",
     contrast: '#fff',
     darken: '#000',
-    placeholder: '#d4d4d4',
-    medium: '#575757'
+    gray: '#d4d4d4',
+    lightGray: '#F1F1F1'
   },
   space: {
     xs: 4,

@@ -15,16 +15,16 @@ export const List = <T extends { id: number }>({
   renderItem,
   onEndReached,
 }: Props<T>) => {
-  const [endedUp, setEndedUp] = useState(false);
+  const [reachedTheEnd, setReachedTheEnd] = useState(false);
   const [renderData, setRenderData] = useState<T[]>([]);
 
   useEffect(() => {
     if (!data?.length) {
-      setEndedUp(true);
+      setReachedTheEnd(true);
     } else if (!renderData.find((item) => item.id === data[0].id)) {
       // this prevents to add the same objects again to the array
       setRenderData((currentRenderData) => [...currentRenderData, ...data]);
-      setEndedUp(false);
+      setReachedTheEnd(false);
     }
   }, [data]);
 
@@ -34,18 +34,21 @@ export const List = <T extends { id: number }>({
 
   return (
     <VirtualizedList
-      initialNumToRender={ITEMS_PER_PAGE}
       data={renderData}
       keyExtractor={(item: T) => String(item.id)}
       renderItem={({ item }) => renderItem(item)}
       onEndReached={() => {
-        if (!endedUp) {
+        if (!reachedTheEnd) {
           onEndReached(page + 1);
         }
       }}
       onEndReachedThreshold={0.1}
       getItemCount={() => renderData.length}
       getItem={(data, index) => data[index]}
+      initialNumToRender={ITEMS_PER_PAGE}
+      maxToRenderPerBatch={ITEMS_PER_PAGE + 1}
+      windowSize={ITEMS_PER_PAGE + 1}
+      updateCellsBatchingPeriod={100}
     />
   );
 };

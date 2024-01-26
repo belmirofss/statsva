@@ -7,15 +7,23 @@ type Props = {
 };
 
 export const Loading = ({ mode = "full" }: Props) => {
+  const isFull = mode === "full";
+
   return (
     <View
       style={{
         flex: 1,
         justifyContent: "center",
-        height: mode === "full" ? "100%" : "auto",
+        alignItems: "center",
+        height: isFull ? "100%" : "auto",
+        padding: Theme.space.m,
+        backgroundColor: "transparent",
       }}
     >
-      <ActivityIndicator size="large" color={Theme.colors.primary} />
+      <ActivityIndicator
+        size={isFull ? "large" : "small"}
+        color={Theme.colors.primary}
+      />
     </View>
   );
 };

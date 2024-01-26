@@ -9,7 +9,6 @@ import { SummaryActivity } from "../types";
 
 export const Activities = () => {
   const [page, setPage] = useState(1);
-
   const { data, isLoading, isError } = useActivities({ page });
 
   return (

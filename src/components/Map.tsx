@@ -30,7 +30,7 @@ export const Map = ({ polyline }: Props) => {
         style={{
           width: viewSize,
           minHeight: viewSize,
-          backgroundColor: Theme.colors.placeholder,
+          backgroundColor: Theme.colors.gray,
         }}
       >
         <MapView

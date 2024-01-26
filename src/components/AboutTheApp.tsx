@@ -12,11 +12,11 @@ export const AboutTheApp = () => {
           All your data is saved exclusively on your device.
         </Text>
         <Text variant="titleMedium">
-          Statsva will never save or collect any information about you or your
+          Stats-va will never save or collect any information about you or your
           account.
         </Text>
         <Text variant="titleMedium">
-          Statsva is independent and has no relationship with Strava.
+          Stats-va is independent and has no relationship with Strava.
         </Text>
       </View>
       <Logo />

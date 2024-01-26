@@ -1,17 +1,13 @@
-export function formatToKm(meters: number) {
+export function formatDistance(meters: number) {
     if (!meters) {
         return "-"
+    }
+
+    if (meters < 1000) {
+        return meters.toFixed(0).concat(" m");
     }
 
     return (meters / 1000).toFixed(1).concat(" km");
-};
-
-export function formatToM(meters: number) {
-    if (!meters) {
-        return "-"
-    }
-
-    return meters.toFixed(0).concat(" m");
 };
 
 export function formatTime(seconds: number) {
@@ -30,18 +26,10 @@ export function formatTime(seconds: number) {
     return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
 }
 
-export function formatKmPerHour(meters: number, seconds: number) {
+export function formatDistancePerHour(meters: number, seconds: number) {
     if (!meters || !seconds) {
         return "-"
     }
 
-    return formatToKm((meters/seconds) * 3600).concat('/h')
-}
-
-export function formatMetersPerHour(meters: number, seconds: number) {
-    if (!meters || !seconds) {
-        return "-"
-    }
-
-    return formatToM((meters/seconds) * 3600).concat('/h')
+    return formatDistance((meters/seconds) * 3600).concat('/h')
 }

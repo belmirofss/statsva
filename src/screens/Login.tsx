@@ -65,7 +65,7 @@ export const Login = () => {
 
       <View style={{ gap: Theme.space.xs }}>
         <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
-          Hello, welcome to Statsva!
+          Hello, welcome to Stats-va!
         </Text>
         <Text variant="titleMedium">
           Connect with your Strava account to see and share your stats

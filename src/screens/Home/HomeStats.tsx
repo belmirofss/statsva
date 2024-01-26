@@ -8,11 +8,9 @@ import { PeriodSelector } from "../../components/PeriodSelector";
 import { HomeStatsSection } from "./HomeStatsSection";
 import { HomeStatsSectionContent } from "./HomeStatsSectionContent";
 import {
-  formatKmPerHour,
-  formatMetersPerHour,
+  formatDistance,
+  formatDistancePerHour,
   formatTime,
-  formatToKm,
-  formatToM,
 } from "../../helpers";
 import { Button } from "../../components/Button";
 import {
@@ -51,7 +49,7 @@ export const HomeStats = ({ stats }: Props) => {
     Period.LAST_4_WEEKS
   );
 
-  const { distance, moving_time, elevation_gain } =
+  const { distance, moving_time, elevation_gain, count } =
     SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](stats);
 
   return (
@@ -78,7 +76,10 @@ export const HomeStats = ({ stats }: Props) => {
         subTitle={PERIOD_TO_LABEL[periodSelected]}
         renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
       >
-        <HomeStatsSectionContent text="Distance" value={formatToKm(distance)} />
+        <HomeStatsSectionContent
+          text="Distance"
+          value={formatDistance(distance)}
+        />
 
         <HomeStatsSectionContent
           text="Moving time"
@@ -86,18 +87,14 @@ export const HomeStats = ({ stats }: Props) => {
         />
 
         <HomeStatsSectionContent
-          text="Average"
-          value={
-            sportSelected === SportType.SWIM
-              ? formatMetersPerHour(distance, moving_time)
-              : formatKmPerHour(distance, moving_time)
-          }
+          text="Pace"
+          value={formatDistancePerHour(distance, moving_time)}
         />
 
         {sportSelected !== SportType.SWIM && (
           <HomeStatsSectionContent
             text="Elevation"
-            value={formatToM(elevation_gain)}
+            value={formatDistance(elevation_gain)}
           />
         )}
 
@@ -105,9 +102,11 @@ export const HomeStats = ({ stats }: Props) => {
           periodSelected === Period.ALL_TIME && (
             <HomeStatsSectionContent
               text="Biggest distance"
-              value={formatToKm(stats.biggest_ride_distance)}
+              value={formatDistance(stats.biggest_ride_distance)}
             />
           )}
+
+        <HomeStatsSectionContent text="Total" value={count} />
       </HomeStatsSection>
 
       <Button onPress={() => {}}>Share</Button>

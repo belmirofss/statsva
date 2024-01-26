@@ -113,7 +113,7 @@ export type SummaryActivity = {
   location_country: string | null;
   location_state: string | null;
   manual: boolean;
-  map: ActivityMap;
+  map?: ActivityMap;
   max_heartrate: number | null;
   max_speed: number;
   moving_time: number;

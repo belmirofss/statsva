@@ -4,7 +4,7 @@ import { Text } from "react-native-paper";
 
 type Props = {
   text: string;
-  value: string;
+  value: string | number;
 };
 
 export const HomeStatsSectionContent = ({ text, value }: Props) => {
@@ -14,7 +14,7 @@ export const HomeStatsSectionContent = ({ text, value }: Props) => {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderBottomColor: Theme.colors.placeholder,
+        borderBottomColor: Theme.colors.gray,
         borderBottomWidth: 1,
         paddingBottom: Theme.space.xs,
       }}

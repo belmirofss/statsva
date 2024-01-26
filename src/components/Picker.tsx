@@ -35,14 +35,14 @@ export const Picker = ({
             contentStyle={{
               borderRadius: 100,
               borderWidth: 2,
-              borderColor: Theme.colors.placeholder,
+              borderColor: Theme.colors.gray,
               flexDirection: "row-reverse",
             }}
             icon={() => (
               <MaterialCommunityIcons
                 name="chevron-down"
                 size={32}
-                color={Theme.colors.placeholder}
+                color={Theme.colors.gray}
               />
             )}
           >
