@@ -18,6 +18,8 @@ export const STRAVA_REDIRECT =
   "com.yabcompany.statsva://com.yabcompany.statsva";
 export const STRAVA_API_ENDPOINT = "https://www.strava.com/api/v3";
 
+export const BUY_ME_A_COFFEE_URL = "https://www.buymeacoffee.com/belmirofss";
+
 export const PERIOD_TO_LABEL: { [key in Period]: string } = {
   [Period.ALL_TIME]: "All time",
   [Period.YEAR_TO_DATE]: "This year",

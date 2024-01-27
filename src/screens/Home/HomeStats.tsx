@@ -82,48 +82,46 @@ export const HomeStats = ({ stats }: Props) => {
   }
 
   return (
-    <View style={{ gap: Theme.space.l }}>
+    <View
+      style={{
+        gap: Theme.space.l,
+        backgroundColor: Theme.colors.contrast,
+        padding: Theme.space.m,
+      }}
+    >
       <View
         style={{
-          gap: Theme.space.l,
-          backgroundColor: Theme.colors.contrast,
-          padding: Theme.space.m,
+          flexDirection: "row",
+          alignItems: "center",
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
-            Stats for{" "}
-          </Text>
-          <SportPicker
-            selectedValue={sportSelected}
-            onSelection={setSportSelected}
-          />
-        </View>
-
-        <PeriodSelector value={periodSelected} onChanges={setPeriodSelected} />
-
-        <View
-          style={{
-            gap: Theme.space.s,
-            backgroundColor: Theme.colors.contrast,
-          }}
-        >
-          <ListItemHeader
-            title={SPORT_TYPE_TO_LABEL[sportSelected]}
-            subTitle={PERIOD_TO_LABEL[periodSelected]}
-            renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
-          />
-
-          <KeyValueList data={keyValueList} />
-        </View>
-
-        <Button onPress={() => {}}>Share</Button>
+        <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
+          Stats for{" "}
+        </Text>
+        <SportPicker
+          selectedValue={sportSelected}
+          onSelection={setSportSelected}
+        />
       </View>
+
+      <PeriodSelector value={periodSelected} onChanges={setPeriodSelected} />
+
+      <View
+        style={{
+          gap: Theme.space.s,
+          backgroundColor: Theme.colors.contrast,
+        }}
+      >
+        <ListItemHeader
+          title={SPORT_TYPE_TO_LABEL[sportSelected]}
+          subTitle={PERIOD_TO_LABEL[periodSelected]}
+          renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
+        />
+
+        <KeyValueList data={keyValueList} />
+      </View>
+
+      <Button onPress={() => {}}>Share</Button>
     </View>
   );
 };

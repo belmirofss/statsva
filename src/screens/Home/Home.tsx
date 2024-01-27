@@ -7,6 +7,7 @@ import { useAthleteStats } from "../../hooks/useAthleteStats";
 import { Button } from "../../components/Button";
 import { Theme } from "../../theme";
 import { HomeStats } from "./HomeStats";
+import { BuyMeACoffe } from "../../components/BuyMeACoffee";
 
 export const Home = () => {
   const { data: stats, isLoading, isError } = useAthleteStats();
@@ -16,8 +17,9 @@ export const Home = () => {
       {isLoading && <Loading />}
       {isError && <Error />}
       {!isLoading && !isError && stats && (
-        <View style={{ gap: Theme.space.m }}>
+        <View style={{ gap: Theme.space.l }}>
           <HomeStats stats={stats} />
+          <BuyMeACoffe />
         </View>
       )}
     </ScreenContainer>

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Stats-va",
-    "slug": "stats-va",
+    "slug": "statsva",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
