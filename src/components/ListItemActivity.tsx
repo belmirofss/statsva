@@ -6,15 +6,50 @@ import React from "react";
 import moment from "moment";
 import { SPORT_TYPE_TO_ICON, SPORT_TYPE_TO_LABEL } from "../constants";
 import { ListItemHeader } from "./ListItemHeader";
-import { formatDistance, formatDistancePerHour, formatTime } from "../helpers";
 import { Text } from "react-native-paper";
 import { Chip } from "./Chip";
+import {
+  formatCalories,
+  formatDistance,
+  formatSpeed,
+  formatTime,
+  formatHeartrate,
+} from "../helpers";
 
 type Props = {
   activity: SummaryActivity;
 };
 
 export const ListItemActivity = React.memo(({ activity }: Props) => {
+  const chips = [
+    {
+      title: "Distance",
+      content: formatDistance(activity.distance),
+    },
+    {
+      title: "Mov time",
+      content: formatTime(activity.moving_time),
+    },
+    {
+      title: "Pace",
+      content: formatSpeed(activity.average_speed),
+    },
+    {
+      title: "Elevation",
+      content: formatDistance(activity.total_elevation_gain),
+    },
+    {
+      title: "Calories",
+      content: formatCalories(activity.kilojoules),
+    },
+    {
+      title: "Calories",
+      content: formatHeartrate(activity.average_heartrate),
+    },
+  ]
+    .filter(({ content }) => !!content)
+    .slice(0, 3);
+
   return (
     <View
       style={{
@@ -34,21 +69,17 @@ export const ListItemActivity = React.memo(({ activity }: Props) => {
         {activity.name}
       </Text>
 
-      <View style={{ flexDirection: "row", gap: Theme.space.s }}>
-        <Chip title="Distance" content={formatDistance(activity.distance)} />
-        <Chip title="Mov time" content={formatTime(activity.moving_time)} />
-        <Chip
-          title="Pace"
-          content={formatDistancePerHour(
-            activity.distance,
-            activity.moving_time
-          )}
-        />
-        <Chip
-          title="Elevation"
-          content={formatDistance(Number(activity.total_elevation_gain))}
-        />
-      </View>
+      {!!chips.length && (
+        <View style={{ flexDirection: "row", gap: Theme.space.s }}>
+          {chips.map((chip) => (
+            <Chip
+              key={chip.title}
+              title={chip.title}
+              content={chip.content || ""}
+            />
+          ))}
+        </View>
+      )}
 
       {activity.map && <Map polyline={activity.map.summary_polyline} />}
     </View>

@@ -49,7 +49,7 @@ export const HomeStats = ({ stats }: Props) => {
     Period.LAST_4_WEEKS
   );
 
-  const { distance, moving_time, elevation_gain, count } =
+  const { distance, moving_time, elevation_gain } =
     SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](stats);
 
   return (
@@ -78,23 +78,23 @@ export const HomeStats = ({ stats }: Props) => {
       >
         <HomeStatsSectionContent
           text="Distance"
-          value={formatDistance(distance)}
+          value={formatDistance(distance) || "-"}
         />
 
         <HomeStatsSectionContent
           text="Moving time"
-          value={formatTime(moving_time)}
+          value={formatTime(moving_time) || "-"}
         />
 
         <HomeStatsSectionContent
           text="Pace"
-          value={formatDistancePerHour(distance, moving_time)}
+          value={formatDistancePerHour(distance, moving_time) || "-"}
         />
 
         {sportSelected !== SportType.SWIM && (
           <HomeStatsSectionContent
             text="Elevation"
-            value={formatDistance(elevation_gain)}
+            value={formatDistance(elevation_gain) || "-"}
           />
         )}
 
@@ -102,11 +102,9 @@ export const HomeStats = ({ stats }: Props) => {
           periodSelected === Period.ALL_TIME && (
             <HomeStatsSectionContent
               text="Biggest distance"
-              value={formatDistance(stats.biggest_ride_distance)}
+              value={formatDistance(stats.biggest_ride_distance) || "-"}
             />
           )}
-
-        <HomeStatsSectionContent text="Total" value={count} />
       </HomeStatsSection>
 
       <Button onPress={() => {}}>Share</Button>

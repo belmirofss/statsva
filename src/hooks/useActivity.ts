@@ -14,4 +14,4 @@ export const useActivity = ({ id }: Props) => {
       select: (response) => response.data,
     }
   );
-};
+}; 

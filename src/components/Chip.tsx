@@ -4,7 +4,7 @@ import { Theme } from "../theme";
 
 type Props = {
   title: string;
-  content: string;
+  content: string | number;
 };
 
 export const Chip = ({ title, content }: Props) => {

@@ -125,7 +125,7 @@ export type SummaryActivity = {
   end_latlng: [number, number];
   start_latlng: [number, number];
   timezone: string;
-  total_elevation_gain: string;
+  total_elevation_gain: number;
   total_photo_count: number;
   trainer: boolean;
 };
