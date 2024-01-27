@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { SummaryActivity } from "../types";
+import { SummaryActivity, TitleAndContent } from "../types";
 import { Theme } from "../theme";
 import { Map } from "./Map";
 import React from "react";
@@ -15,13 +15,17 @@ import {
   formatTime,
   formatHeartrate,
 } from "../helpers";
+import { Button } from "./Button";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   activity: SummaryActivity;
 };
 
 export const ListItemActivity = React.memo(({ activity }: Props) => {
-  const chips = [
+  const navigation = useNavigation();
+
+  const chips: TitleAndContent[] = [
     {
       title: "Distance",
       content: formatDistance(activity.distance),
@@ -64,11 +68,9 @@ export const ListItemActivity = React.memo(({ activity }: Props) => {
         subTitle={moment(activity.start_date).format("lll")}
         renderIcon={SPORT_TYPE_TO_ICON[activity.sport_type]}
       />
-
       <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
         {activity.name}
       </Text>
-
       {!!chips.length && (
         <View style={{ flexDirection: "row", gap: Theme.space.s }}>
           {chips.map((chip) => (
@@ -80,8 +82,15 @@ export const ListItemActivity = React.memo(({ activity }: Props) => {
           ))}
         </View>
       )}
-
       {activity.map && <Map polyline={activity.map.summary_polyline} />}
+      <Button
+        mode="outlined"
+        onPress={() => {
+          navigation.navigate("Activity", { id: activity.id });
+        }}
+      >
+        View more
+      </Button>
     </View>
   );
 });

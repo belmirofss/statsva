@@ -1,13 +1,13 @@
 import { View } from "react-native";
-import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
+import { Theme } from "../theme";
 
 type Props = {
   text: string;
   value: string | number;
 };
 
-export const HomeStatsSectionContent = ({ text, value }: Props) => {
+export const KeyValue = ({ text, value }: Props) => {
   return (
     <View
       style={{

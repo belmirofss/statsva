@@ -44,7 +44,7 @@ export function formatSpeed(speedInMS: number) {
 
 export function formatDistancePerHour(meters: number, seconds: number) {
   if (!meters || !seconds) {
-      return null;
+      return;
   }
 
   const result = formatDistance((meters/seconds) * 3600);
@@ -70,5 +70,5 @@ export function formatHeartrate(heartrate: number) {
     return;
   }
 
-  return heartrate.toFixed(0).concat("/m")
+  return heartrate.toFixed(0).concat(" bpm")
 }

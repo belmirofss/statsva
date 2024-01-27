@@ -3,10 +3,8 @@ import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
 import { SportPicker } from "../../components/SportPicker";
 import React from "react";
-import { AthleteStats, Period, SportType } from "../../types";
+import { AthleteStats, Period, SportType, TitleAndContent } from "../../types";
 import { PeriodSelector } from "../../components/PeriodSelector";
-import { HomeStatsSection } from "./HomeStatsSection";
-import { HomeStatsSectionContent } from "./HomeStatsSectionContent";
 import {
   formatDistance,
   formatDistancePerHour,
@@ -18,6 +16,8 @@ import {
   SPORT_TYPE_TO_ICON,
   SPORT_TYPE_TO_LABEL,
 } from "../../constants";
+import { ListItemHeader } from "../../components/ListItemHeader";
+import { KeyValueList } from "../../components/KeyValueList";
 
 export const SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE = {
   [SportType.RIDE]: {
@@ -52,62 +52,78 @@ export const HomeStats = ({ stats }: Props) => {
   const { distance, moving_time, elevation_gain } =
     SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](stats);
 
+  const keyValueList: TitleAndContent[] = [
+    {
+      title: "Distance",
+      content: formatDistance(distance),
+    },
+    {
+      title: "Moving time",
+      content: formatTime(moving_time),
+    },
+    {
+      title: "Pace",
+      content: formatDistancePerHour(distance, moving_time),
+    },
+  ];
+
+  if (sportSelected !== SportType.SWIM) {
+    keyValueList.push({
+      title: "Elevation",
+      content: formatDistance(elevation_gain),
+    });
+  }
+
+  if (sportSelected === SportType.RIDE && periodSelected === Period.ALL_TIME) {
+    keyValueList.push({
+      title: "Biggest distance",
+      content: formatDistance(stats.biggest_ride_distance),
+    });
+  }
+
   return (
     <View style={{ gap: Theme.space.l }}>
       <View
         style={{
-          flexDirection: "row",
-          alignItems: "center",
+          gap: Theme.space.l,
+          backgroundColor: Theme.colors.contrast,
+          padding: Theme.space.m,
         }}
       >
-        <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
-          Stats for{" "}
-        </Text>
-        <SportPicker
-          selectedValue={sportSelected}
-          onSelection={setSportSelected}
-        />
-      </View>
-
-      <PeriodSelector value={periodSelected} onChanges={setPeriodSelected} />
-
-      <HomeStatsSection
-        title={SPORT_TYPE_TO_LABEL[sportSelected]}
-        subTitle={PERIOD_TO_LABEL[periodSelected]}
-        renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
-      >
-        <HomeStatsSectionContent
-          text="Distance"
-          value={formatDistance(distance) || "-"}
-        />
-
-        <HomeStatsSectionContent
-          text="Moving time"
-          value={formatTime(moving_time) || "-"}
-        />
-
-        <HomeStatsSectionContent
-          text="Pace"
-          value={formatDistancePerHour(distance, moving_time) || "-"}
-        />
-
-        {sportSelected !== SportType.SWIM && (
-          <HomeStatsSectionContent
-            text="Elevation"
-            value={formatDistance(elevation_gain) || "-"}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
+            Stats for{" "}
+          </Text>
+          <SportPicker
+            selectedValue={sportSelected}
+            onSelection={setSportSelected}
           />
-        )}
+        </View>
 
-        {sportSelected === SportType.RIDE &&
-          periodSelected === Period.ALL_TIME && (
-            <HomeStatsSectionContent
-              text="Biggest distance"
-              value={formatDistance(stats.biggest_ride_distance) || "-"}
-            />
-          )}
-      </HomeStatsSection>
+        <PeriodSelector value={periodSelected} onChanges={setPeriodSelected} />
 
-      <Button onPress={() => {}}>Share</Button>
+        <View
+          style={{
+            gap: Theme.space.s,
+            backgroundColor: Theme.colors.contrast,
+          }}
+        >
+          <ListItemHeader
+            title={SPORT_TYPE_TO_LABEL[sportSelected]}
+            subTitle={PERIOD_TO_LABEL[periodSelected]}
+            renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
+          />
+
+          <KeyValueList data={keyValueList} />
+        </View>
+
+        <Button onPress={() => {}}>Share</Button>
+      </View>
     </View>
   );
 };

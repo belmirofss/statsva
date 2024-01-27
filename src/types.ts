@@ -185,3 +185,8 @@ export enum Period {
   YEAR_TO_DATE = "YEAR_TO_DATE",
   LAST_4_WEEKS = "LAST_4_WEEKS"
 }
+
+export type TitleAndContent = {
+  title: string;
+  content: string | number | undefined;
+};

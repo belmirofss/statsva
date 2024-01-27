@@ -1,11 +1,9 @@
-import { Chip as ChipPaper, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { View } from "react-native";
 import { Theme } from "../theme";
+import { TitleAndContent } from "../types";
 
-type Props = {
-  title: string;
-  content: string | number;
-};
+type Props = TitleAndContent;
 
 export const Chip = ({ title, content }: Props) => {
   return (

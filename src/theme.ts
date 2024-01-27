@@ -4,7 +4,7 @@ export const Theme = {
     contrast: '#fff',
     darken: '#000',
     gray: '#d4d4d4',
-    lightGray: '#F1F1F1'
+    lightGray: '#F6F6F6'
   },
   space: {
     xs: 4,

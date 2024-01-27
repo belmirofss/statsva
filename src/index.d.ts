@@ -2,6 +2,9 @@ export declare global {
   namespace ReactNavigation {
     interface RootParamList {
       About: undefined;
+      Activity: {
+        id: number;
+      };
     }
   }
 

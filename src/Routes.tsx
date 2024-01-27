@@ -8,9 +8,7 @@ import { Home } from "./screens/Home/Home";
 import { Activities } from "./screens/Activities";
 import { Theme } from "./theme";
 import { Account } from "./screens/Account";
-import { View, Animated } from "react-native";
-import { Text } from "react-native-paper";
-import { ITEMS_PER_PAGE } from "./constants";
+import { Activity } from "./screens/Activity";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -75,12 +73,13 @@ export const Routes = () => {
 
   if (isAuthenticated) {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="AuthenticatedBottomTabNavigator">
         <Stack.Screen
           name="AuthenticatedBottomTabNavigator"
           component={AuthenticatedBottomTabNavigator}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="Activity" component={Activity} />
       </Stack.Navigator>
     );
   }

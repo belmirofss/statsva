@@ -9,7 +9,7 @@ type Props = {
 export const useActivity = ({ id }: Props) => {
   return useQuery(
     ["ACTIVITY", id],
-    () => API.get<SummaryActivity[]>(`activities/${id}`),
+    () => API.get<SummaryActivity>(`activities/${id}`),
     {
       select: (response) => response.data,
     }
