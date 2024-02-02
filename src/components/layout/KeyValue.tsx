@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 
 type Props = {
   text: string;

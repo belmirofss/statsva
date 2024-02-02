@@ -1,4 +1,4 @@
-import IMG from "../images/swimming.png";
+import IMG from "../../images/swimming.png";
 import { SquareImg } from "./SquareImg";
 
 export const SwimmingImg = () => {

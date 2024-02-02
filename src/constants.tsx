@@ -1,9 +1,9 @@
-import { SwimmingImg } from "./components/SwimmingImg";
-import { RunningImg } from "./components/RunningImg";
-import { BikingImg } from "./components/BikingImg";
+import { SwimmingImg } from "./components/imgs/SwimmingImg";
+import { RunningImg } from "./components/imgs/RunningImg";
+import { BikingImg } from "./components/imgs/BikingImg";
 import { Period, SportType } from "./types";
 import { ReactElement } from "react";
-import { OtherImg } from "./components/OtherImg";
+import { OtherImg } from "./components/imgs/OtherImg";
 
 export const ITEMS_PER_PAGE = 5;
 export const ACCESS_TOKEN_KEY = "Statsva_Access_Token";

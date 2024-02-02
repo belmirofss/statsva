@@ -3,9 +3,10 @@ import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
 import { SummaryActivity } from "../../types";
 import { Map } from "../../components/Map";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/layout/Button";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityHeader } from "../../components/ActivityHeader";
+import { SummarizedActivityStats } from "../../components/SummarizedActivityStats";
 
 type Props = {
   activity: SummaryActivity;
@@ -28,6 +29,7 @@ export const HomeLastActivity = ({ activity }: Props) => {
 
       <View style={{ gap: Theme.space.m }}>
         <ActivityHeader activity={activity} />
+        <SummarizedActivityStats activity={activity} />
         {activity.map && <Map polyline={activity.map.summary_polyline} />}
         <Button
           mode="contained"

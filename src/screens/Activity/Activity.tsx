@@ -1,6 +1,6 @@
-import { Error } from "../../components/Error";
-import { Loading } from "../../components/Loading";
-import { ScreenContainer } from "../../components/ScreenContainer";
+import { Error } from "../../components/layout/Error";
+import { Loading } from "../../components/layout/Loading";
+import { ScreenContainer } from "../../components/layout/ScreenContainer";
 import { useActivity } from "../../hooks/useActivity";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import { ActivityCard } from "./ActivityCard";

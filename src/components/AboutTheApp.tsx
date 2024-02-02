@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { Text } from "react-native-paper";
-import { Logo } from "./Logo";
+import { Logo } from "./imgs/Logo";
 import { Theme } from "../theme";
 import appInfo from "../../app.json";
 

@@ -1,5 +1,5 @@
 import { Dialog, Portal } from "react-native-paper";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 
 type Props = {
   title: string;

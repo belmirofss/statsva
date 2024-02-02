@@ -1,4 +1,4 @@
-import IMG from "../images/running.png";
+import IMG from "../../images/running.png";
 import { SquareImg } from "./SquareImg";
 
 export const RunningImg = () => {

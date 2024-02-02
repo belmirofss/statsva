@@ -3,10 +3,10 @@ import { View } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { Text } from "react-native-paper";
-import { ScreenContainer } from "../components/ScreenContainer";
+import { ScreenContainer } from "../components/layout/ScreenContainer";
 import { Theme } from "../theme";
-import { Logo } from "../components/Logo";
-import { Button } from "../components/Button";
+import { Logo } from "../components/imgs/Logo";
+import { Button } from "../components/layout/Button";
 import { useNavigation } from "@react-navigation/native";
 import {
   AUTHORIZATION_ENDPOINT_STRAVA,
@@ -17,7 +17,7 @@ import {
   TOKEN_ENDPOINT_STRAVA,
 } from "../constants";
 import { useAppContext } from "../hooks/useAppContext";
-import { OverlayLoading } from "../components/OverlayLoading";
+import { OverlayLoading } from "../components/layout/OverlayLoading";
 
 WebBrowser.maybeCompleteAuthSession();
 

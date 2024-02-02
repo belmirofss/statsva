@@ -1,18 +1,12 @@
 import React from "react";
 import { View } from "react-native";
-import { SummaryActivity, TitleAndContent } from "../../types";
+import { SummaryActivity } from "../../types";
 import { Theme } from "../../theme";
 import { Map } from "../../components/Map";
-import { Chip } from "../../components/Chip";
-import {
-  formatDistance,
-  formatSpeed,
-  formatTime,
-  formatHeartrate,
-} from "../../helpers";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/layout/Button";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityHeader } from "../../components/ActivityHeader";
+import { SummarizedActivityStats } from "../../components/SummarizedActivityStats";
 
 type Props = {
   activity: SummaryActivity;
@@ -20,31 +14,6 @@ type Props = {
 
 export const ListItemActivity = React.memo(({ activity }: Props) => {
   const navigation = useNavigation();
-
-  const chips: TitleAndContent[] = [
-    {
-      title: "Distance",
-      content: formatDistance(activity.distance),
-    },
-    {
-      title: "Mov time",
-      content: formatTime(activity.moving_time),
-    },
-    {
-      title: "Pace",
-      content: formatSpeed(activity.average_speed),
-    },
-    {
-      title: "Elevation",
-      content: formatDistance(activity.total_elevation_gain),
-    },
-    {
-      title: "Heartrate",
-      content: formatHeartrate(activity.average_heartrate),
-    },
-  ]
-    .filter(({ content }) => !!content)
-    .slice(0, 3);
 
   return (
     <View
@@ -56,17 +25,7 @@ export const ListItemActivity = React.memo(({ activity }: Props) => {
     >
       <ActivityHeader activity={activity} />
 
-      {!!chips.length && (
-        <View style={{ flexDirection: "row", gap: Theme.space.s }}>
-          {chips.map((chip) => (
-            <Chip
-              key={chip.title}
-              title={chip.title}
-              content={chip.content || ""}
-            />
-          ))}
-        </View>
-      )}
+      <SummarizedActivityStats activity={activity} />
       {activity.map && <Map polyline={activity.map.summary_polyline} />}
       <Button
         mode="contained"

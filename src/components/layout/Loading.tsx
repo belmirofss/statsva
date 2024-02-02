@@ -1,6 +1,6 @@
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 
 type Props = {
   mode?: "local" | "full";

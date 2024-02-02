@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
 
 export const Error = () => {

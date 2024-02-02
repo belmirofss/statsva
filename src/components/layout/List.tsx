@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { VirtualizedList } from "react-native";
-import { ITEMS_PER_PAGE } from "../constants";
+import { ITEMS_PER_PAGE } from "../../constants";
 
 type Props<T> = {
   page: number;

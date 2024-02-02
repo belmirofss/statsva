@@ -1,4 +1,4 @@
-import { ScreenContainer } from "../components/ScreenContainer";
+import { ScreenContainer } from "../components/layout/ScreenContainer";
 import { Theme } from "../theme";
 import { AboutTheApp } from "../components/AboutTheApp";
 

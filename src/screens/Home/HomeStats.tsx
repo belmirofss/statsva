@@ -10,14 +10,14 @@ import {
   formatDistancePerHour,
   formatTime,
 } from "../../helpers";
-import { Button } from "../../components/Button";
+import { Button } from "../../components/layout/Button";
 import {
   PERIOD_TO_LABEL,
   SPORT_TYPE_TO_ICON,
   SPORT_TYPE_TO_LABEL,
 } from "../../constants";
 import { HomeStatsHeader } from "./HomeStatsHeader";
-import { KeyValueList } from "../../components/KeyValueList";
+import { KeyValueList } from "../../components/layout/KeyValueList";
 
 export const SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE = {
   [SportType.RIDE]: {

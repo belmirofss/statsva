@@ -1,6 +1,6 @@
 import { Button as PaperButton, Text } from "react-native-paper";
 import { ReactNode, ComponentProps } from "react";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 
 type Props = {
   children: ReactNode;

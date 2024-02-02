@@ -6,7 +6,7 @@ import {
   StyleProp,
   ViewStyle,
 } from "react-native";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 
 type ViewStyleProp = StyleProp<ViewStyle>;
 

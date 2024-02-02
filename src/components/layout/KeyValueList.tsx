@@ -1,7 +1,7 @@
 import { View } from "react-native";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 import { KeyValue } from "./KeyValue";
-import { TitleAndContent } from "../types";
+import { TitleAndContent } from "../../types";
 
 type Props = {
   data: TitleAndContent[];

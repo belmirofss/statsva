@@ -1,7 +1,7 @@
 import { Text } from "react-native-paper";
 import { View } from "react-native";
-import { Theme } from "../theme";
-import { TitleAndContent } from "../types";
+import { Theme } from "../../theme";
+import { TitleAndContent } from "../../types";
 
 type Props = TitleAndContent;
 

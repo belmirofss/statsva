@@ -1,8 +1,8 @@
-import { ScreenContainer } from "../../components/ScreenContainer";
+import { ScreenContainer } from "../../components/layout/ScreenContainer";
 import { useActivities } from "../../hooks/useActivities";
-import { Loading } from "../../components/Loading";
-import { Error } from "../../components/Error";
-import { List } from "../../components/List";
+import { Loading } from "../../components/layout/Loading";
+import { Error } from "../../components/layout/Error";
+import { List } from "../../components/layout/List";
 import { useState } from "react";
 import { ListItemActivity } from "./ListItemActivity";
 import { SummaryActivity } from "../../types";
