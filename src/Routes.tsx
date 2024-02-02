@@ -5,7 +5,7 @@ import { Login } from "./screens/Login";
 import { useAppContext } from "./hooks/useAppContext";
 import { About } from "./screens/About";
 import { Home } from "./screens/Home/Home";
-import { Activities } from "./screens/Activities/Activities";
+import { Activities } from "./screens/Activities";
 import { Theme } from "./theme";
 import { Account } from "./screens/Account";
 import { Activity } from "./screens/Activity/Activity";

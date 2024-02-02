@@ -1,28 +1,29 @@
 import { View } from "react-native";
-import { SummaryActivity, TitleAndContent } from "../../types";
-import { Theme } from "../../theme";
-import { Map } from "../../components/Map";
+import { SummaryActivity, TitleAndContent } from "../types";
+import { Theme } from "../theme";
+import { Map } from "./Map";
 import React from "react";
 import moment from "moment";
-import { SPORT_TYPE_TO_ICON, SPORT_TYPE_TO_LABEL } from "../../constants";
-import { ListItemHeader } from "../../components/ListItemHeader";
+import { SPORT_TYPE_TO_ICON, SPORT_TYPE_TO_LABEL } from "../constants";
+import { ListItemHeader } from "./ListItemHeader";
 import { Text } from "react-native-paper";
-import { Chip } from "../../components/Chip";
+import { Chip } from "./Chip";
 import {
   formatCalories,
   formatDistance,
   formatSpeed,
   formatTime,
   formatHeartrate,
-} from "../../helpers";
-import { Button } from "../../components/Button";
+} from "../helpers";
+import { Button } from "./Button";
 import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   activity: SummaryActivity;
+  noPadding?: boolean;
 };
 
-export const ListItemActivity = React.memo(({ activity }: Props) => {
+export const ListItemActivity = React.memo(({ activity, noPadding }: Props) => {
   const navigation = useNavigation();
 
   const chips: TitleAndContent[] = [
@@ -57,9 +58,8 @@ export const ListItemActivity = React.memo(({ activity }: Props) => {
   return (
     <View
       style={{
-        marginBottom: Theme.space.xl,
         backgroundColor: Theme.colors.contrast,
-        padding: Theme.space.m,
+        padding: noPadding ? 0 : Theme.space.m,
         gap: Theme.space.s,
       }}
     >

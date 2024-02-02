@@ -5,16 +5,17 @@ import { ITEMS_PER_PAGE } from "../constants";
 
 type Props = {
   page: number;
+  perPage?: number;
 };
 
-export const useActivities = ({ page }: Props) => {
+export const useActivities = ({ page, perPage = ITEMS_PER_PAGE }: Props) => {
   return useQuery(
-    ["ACTIVITIES", page],
+    ["ACTIVITIES", page, perPage],
     () =>
       API.get<SummaryActivity[]>(`athlete/activities`, {
         params: {
           page,
-          per_page: ITEMS_PER_PAGE,
+          per_page: perPage,
         },
       }),
     {

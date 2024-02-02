@@ -58,36 +58,28 @@ export const ActivityCard = ({ activity }: Props) => {
       >
         <View
           style={{
-            flexDirection: "row",
-            gap: Theme.space.s,
-            alignItems: "center",
+            flexDirection: "column",
+            flex: 1,
           }}
         >
           {SPORT_TYPE_TO_ICON[activity.sport_type]()}
-          <View
+          <Text
+            variant="labelSmall"
             style={{
-              flexDirection: "column",
-              flex: 1,
+              fontFamily: Theme.fonts.bold,
             }}
           >
-            <Text
-              variant="labelSmall"
-              style={{
-                fontFamily: Theme.fonts.bold,
-              }}
-            >
-              {moment(activity.start_date).format("lll")}
-            </Text>
-            <Text
-              variant="headlineSmall"
-              style={{
-                fontFamily: Theme.fonts.bold,
-                lineHeight: 24,
-              }}
-            >
-              {activity.name}
-            </Text>
-          </View>
+            {moment(activity.start_date).format("lll")}
+          </Text>
+          <Text
+            variant="headlineSmall"
+            style={{
+              fontFamily: Theme.fonts.bold,
+              lineHeight: 24,
+            }}
+          >
+            {activity.name}
+          </Text>
         </View>
 
         <View style={{ flexDirection: "row", gap: Theme.space.s }}>
