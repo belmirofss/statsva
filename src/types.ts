@@ -173,7 +173,7 @@ export type Activity = SummaryActivity & {
   average_temp: number;
   max_watts: number;
   description: string;
-  calories: number | null;
+  calories: number | undefined;
   segment_efforts: SegmentEffort[];
   photos: {
     primary: Photo;

@@ -1,4 +1,4 @@
-export function formatDistance(meters: number) {
+export function formatDistance(meters: number | undefined) {
   if (!meters) {
     return;
   }
@@ -10,7 +10,7 @@ export function formatDistance(meters: number) {
   return (meters / 1000).toFixed(1).concat(" km");
 }
 
-export function formatTime(seconds: number) {
+export function formatTime(seconds: number | undefined) {
   if (!seconds) {
     return;
   }
@@ -27,7 +27,7 @@ export function formatTime(seconds: number) {
   return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
-export function formatSpeed(speedInMS: number) {
+export function formatSpeed(speedInMS: number | undefined) {
   if (!speedInMS) {
     return;
   }
@@ -42,7 +42,7 @@ export function formatSpeed(speedInMS: number) {
   return metersPerHour.toFixed(0).concat(" m/h")
 }
 
-export function formatDistancePerHour(meters: number, seconds: number) {
+export function formatDistancePerHour(meters: number  | undefined, seconds: number  | undefined) {
   if (!meters || !seconds) {
       return;
   }
@@ -56,16 +56,15 @@ export function formatDistancePerHour(meters: number, seconds: number) {
   return result.concat('/h')
 }
 
-export function formatCalories(kilojoules: number) {
-  if (!kilojoules) {
+export function formatCalories(calories: number | undefined) {
+  if (!calories) {
     return;
   }
 
-  const calories = kilojoules * 0.239;
   return calories.toFixed(0).concat(" cal");
 }
 
-export function formatHeartrate(heartrate: number) {
+export function formatHeartrate(heartrate: number | undefined) {
   if (!heartrate) {
     return;
   }

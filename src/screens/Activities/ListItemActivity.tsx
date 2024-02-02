@@ -1,29 +1,24 @@
-import { View } from "react-native";
-import { SummaryActivity, TitleAndContent } from "../types";
-import { Theme } from "../theme";
-import { Map } from "./Map";
 import React from "react";
-import moment from "moment";
-import { SPORT_TYPE_TO_ICON, SPORT_TYPE_TO_LABEL } from "../constants";
-import { ListItemHeader } from "./ListItemHeader";
-import { Text } from "react-native-paper";
-import { Chip } from "./Chip";
+import { View } from "react-native";
+import { SummaryActivity, TitleAndContent } from "../../types";
+import { Theme } from "../../theme";
+import { Map } from "../../components/Map";
+import { Chip } from "../../components/Chip";
 import {
-  formatCalories,
   formatDistance,
   formatSpeed,
   formatTime,
   formatHeartrate,
-} from "../helpers";
-import { Button } from "./Button";
+} from "../../helpers";
+import { Button } from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
+import { ActivityHeader } from "../../components/ActivityHeader";
 
 type Props = {
   activity: SummaryActivity;
-  noPadding?: boolean;
 };
 
-export const ListItemActivity = React.memo(({ activity, noPadding }: Props) => {
+export const ListItemActivity = React.memo(({ activity }: Props) => {
   const navigation = useNavigation();
 
   const chips: TitleAndContent[] = [
@@ -44,11 +39,7 @@ export const ListItemActivity = React.memo(({ activity, noPadding }: Props) => {
       content: formatDistance(activity.total_elevation_gain),
     },
     {
-      title: "Calories",
-      content: formatCalories(activity.kilojoules),
-    },
-    {
-      title: "Calories",
+      title: "Heartrate",
       content: formatHeartrate(activity.average_heartrate),
     },
   ]
@@ -59,18 +50,12 @@ export const ListItemActivity = React.memo(({ activity, noPadding }: Props) => {
     <View
       style={{
         backgroundColor: Theme.colors.contrast,
-        padding: noPadding ? 0 : Theme.space.m,
+        padding: Theme.space.m,
         gap: Theme.space.s,
       }}
     >
-      <ListItemHeader
-        title={SPORT_TYPE_TO_LABEL[activity.sport_type]}
-        subTitle={moment(activity.start_date).format("lll")}
-        renderIcon={SPORT_TYPE_TO_ICON[activity.sport_type]}
-      />
-      <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
-        {activity.name}
-      </Text>
+      <ActivityHeader activity={activity} />
+
       {!!chips.length && (
         <View style={{ flexDirection: "row", gap: Theme.space.s }}>
           {chips.map((chip) => (
@@ -84,7 +69,7 @@ export const ListItemActivity = React.memo(({ activity, noPadding }: Props) => {
       )}
       {activity.map && <Map polyline={activity.map.summary_polyline} />}
       <Button
-        mode="outlined"
+        mode="contained"
         onPress={() => {
           navigation.navigate("Activity", { id: activity.id });
         }}

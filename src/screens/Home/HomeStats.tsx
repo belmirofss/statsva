@@ -16,7 +16,7 @@ import {
   SPORT_TYPE_TO_ICON,
   SPORT_TYPE_TO_LABEL,
 } from "../../constants";
-import { ListItemHeader } from "../../components/ListItemHeader";
+import { HomeStatsHeader } from "./HomeStatsHeader";
 import { KeyValueList } from "../../components/KeyValueList";
 
 export const SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE = {
@@ -112,7 +112,7 @@ export const HomeStats = ({ stats }: Props) => {
           backgroundColor: Theme.colors.contrast,
         }}
       >
-        <ListItemHeader
+        <HomeStatsHeader
           title={SPORT_TYPE_TO_LABEL[sportSelected]}
           subTitle={PERIOD_TO_LABEL[periodSelected]}
           renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}

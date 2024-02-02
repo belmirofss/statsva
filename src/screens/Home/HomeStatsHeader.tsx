@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Theme } from "../theme";
+import { Theme } from "../../theme";
 import { Text } from "react-native-paper";
 import { ReactElement } from "react";
 
@@ -9,7 +9,7 @@ type Props = {
   renderIcon: () => ReactElement;
 };
 
-export const ListItemHeader = ({ title, subTitle, renderIcon }: Props) => {
+export const HomeStatsHeader = ({ title, subTitle, renderIcon }: Props) => {
   return (
     <View
       style={{
@@ -24,7 +24,7 @@ export const ListItemHeader = ({ title, subTitle, renderIcon }: Props) => {
         paddingVertical: Theme.space.xs,
       }}
     >
-      <View>
+      <View style={{ flex: 1 }}>
         <Text
           variant="titleMedium"
           style={{

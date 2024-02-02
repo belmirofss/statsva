@@ -1,9 +1,7 @@
 import { View } from "react-native";
-import { SummaryActivity, TitleAndContent } from "../../types";
+import { Activity, TitleAndContent } from "../../types";
 import { Theme } from "../../theme";
-import { SPORT_TYPE_TO_ICON, SPORT_TYPE_TO_LABEL } from "../../constants";
-import { Text } from "react-native-paper";
-import moment from "moment";
+import { SPORT_TYPE_TO_LABEL } from "../../constants";
 import { Chip } from "../../components/Chip";
 import {
   formatCalories,
@@ -15,32 +13,46 @@ import {
 import { KeyValueList } from "../../components/KeyValueList";
 import { Map } from "../../components/Map";
 import { Button } from "../../components/Button";
+import { ActivityHeader } from "../../components/ActivityHeader";
 
 type Props = {
-  activity: SummaryActivity;
+  activity: Activity;
 };
 
 export const ActivityCard = ({ activity }: Props) => {
-  const keyValueList: TitleAndContent[] = activity
-    ? [
-        {
-          title: "Distance",
-          content: formatDistance(activity.distance),
-        },
-        {
-          title: "Moving time",
-          content: formatTime(activity.moving_time),
-        },
-        {
-          title: "Pace",
-          content: formatSpeed(activity.average_speed),
-        },
-        {
-          title: "Elevation",
-          content: formatDistance(activity.total_elevation_gain),
-        },
-      ].filter(({ content }) => !!content)
-    : [];
+  const keyValueList: TitleAndContent[] = [
+    {
+      title: "Distance",
+      content: formatDistance(activity.distance),
+    },
+    {
+      title: "Moving time",
+      content: formatTime(activity.moving_time),
+    },
+    {
+      title: "Pace",
+      content: formatSpeed(activity.average_speed),
+    },
+    {
+      title: "Elevation",
+      content: formatDistance(activity.total_elevation_gain),
+    },
+  ].filter(({ content }) => !!content);
+
+  const chips: TitleAndContent[] = [
+    {
+      title: "Max speed",
+      content: formatSpeed(activity.max_speed),
+    },
+    {
+      title: "Calories",
+      content: formatCalories(activity.calories),
+    },
+    {
+      title: "Heartrate",
+      content: formatHeartrate(activity.average_heartrate),
+    },
+  ].filter(({ content }) => !!content);
 
   return (
     <View
@@ -56,48 +68,21 @@ export const ActivityCard = ({ activity }: Props) => {
           backgroundColor: Theme.colors.contrast,
         }}
       >
-        <View
-          style={{
-            flexDirection: "column",
-            flex: 1,
-          }}
-        >
-          {SPORT_TYPE_TO_ICON[activity.sport_type]()}
-          <Text
-            variant="labelSmall"
-            style={{
-              fontFamily: Theme.fonts.bold,
-            }}
-          >
-            {moment(activity.start_date).format("lll")}
-          </Text>
-          <Text
-            variant="headlineSmall"
-            style={{
-              fontFamily: Theme.fonts.bold,
-              lineHeight: 24,
-            }}
-          >
-            {activity.name}
-          </Text>
-        </View>
+        <ActivityHeader activity={activity} />
 
-        <View style={{ flexDirection: "row", gap: Theme.space.s }}>
-          <Chip
-            title="Type"
-            content={SPORT_TYPE_TO_LABEL[activity.sport_type]}
-          />
-          <Chip
-            title="Calories"
-            content={formatCalories(activity.kilojoules)}
-          />
-          <Chip
-            title="Heartrate"
-            content={formatHeartrate(activity.average_heartrate)}
-          />
-        </View>
+        {!!chips.length && (
+          <View style={{ flexDirection: "row", gap: Theme.space.s }}>
+            {chips.map((item) => (
+              <Chip
+                key={item.title}
+                title={item.title}
+                content={item.content}
+              />
+            ))}
+          </View>
+        )}
 
-        <KeyValueList data={keyValueList} />
+        {!!keyValueList.length && <KeyValueList data={keyValueList} />}
 
         {activity.map && <Map polyline={activity.map.summary_polyline} />}
       </View>
