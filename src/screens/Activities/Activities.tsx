@@ -1,11 +1,11 @@
-import { ScreenContainer } from "../components/ScreenContainer";
-import { useActivities } from "../hooks/useActivities";
-import { Loading } from "../components/Loading";
-import { Error } from "../components/Error";
-import { List } from "../components/List";
+import { ScreenContainer } from "../../components/ScreenContainer";
+import { useActivities } from "../../hooks/useActivities";
+import { Loading } from "../../components/Loading";
+import { Error } from "../../components/Error";
+import { List } from "../../components/List";
 import { useState } from "react";
-import { ListItemActivity } from "../components/ListItemActivity";
-import { SummaryActivity } from "../types";
+import { ListItemActivity } from "./ListItemActivity";
+import { SummaryActivity } from "../../types";
 
 export const Activities = () => {
   const [page, setPage] = useState(1);

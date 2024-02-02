@@ -56,9 +56,9 @@ export const BuyMeACoffe = () => {
         />
       )}
       style={{
-        backgroundColor: Theme.colors.lightGray,
-        elevation: 0,
+        backgroundColor: Theme.colors.contrast,
       }}
+      elevation={0}
     >
       If you've enjoyed using this app, consider buying me a coffee as a token
       of appreciation.
