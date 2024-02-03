@@ -18,6 +18,9 @@ import {
 } from "../../constants";
 import { HomeStatsHeader } from "./HomeStatsHeader";
 import { KeyValueList } from "../../components/layout/KeyValueList";
+import { ShareBottom } from "../../components/ShareBottom";
+import { useShare } from "../../hooks/useShare";
+import ViewShot from "react-native-view-shot";
 
 export const SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE = {
   [SportType.RIDE]: {
@@ -48,6 +51,8 @@ export const HomeStats = ({ stats }: Props) => {
   const [periodSelected, setPeriodSelected] = React.useState(
     Period.LAST_4_WEEKS
   );
+
+  const { viewShotRef, openShareDialog } = useShare();
 
   const { distance, moving_time, elevation_gain } =
     SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](stats);
@@ -84,15 +89,16 @@ export const HomeStats = ({ stats }: Props) => {
   return (
     <View
       style={{
-        gap: Theme.space.l,
+        gap: Theme.space.m,
         backgroundColor: Theme.colors.contrast,
-        padding: Theme.space.m,
       }}
     >
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
+          paddingHorizontal: Theme.space.m,
+          paddingTop: Theme.space.m,
         }}
       >
         <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
@@ -104,24 +110,46 @@ export const HomeStats = ({ stats }: Props) => {
         />
       </View>
 
-      <PeriodSelector value={periodSelected} onChanges={setPeriodSelected} />
+      <View style={{ paddingHorizontal: Theme.space.m }}>
+        <PeriodSelector value={periodSelected} onChanges={setPeriodSelected} />
+      </View>
+
+      <ViewShot
+        ref={viewShotRef}
+        options={{
+          format: "jpg",
+          quality: 1,
+          fileName: `Stats-va - My Stats`,
+        }}
+      >
+        <View
+          style={{
+            gap: Theme.space.s,
+            backgroundColor: Theme.colors.contrast,
+            padding: Theme.space.m,
+          }}
+        >
+          <HomeStatsHeader
+            title={SPORT_TYPE_TO_LABEL[sportSelected]}
+            subTitle={PERIOD_TO_LABEL[periodSelected]}
+            renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
+          />
+
+          <KeyValueList data={keyValueList} />
+          <View style={{ marginTop: Theme.space.xs }}>
+            <ShareBottom />
+          </View>
+        </View>
+      </ViewShot>
 
       <View
         style={{
-          gap: Theme.space.s,
-          backgroundColor: Theme.colors.contrast,
+          paddingHorizontal: Theme.space.m,
+          paddingBottom: Theme.space.m,
         }}
       >
-        <HomeStatsHeader
-          title={SPORT_TYPE_TO_LABEL[sportSelected]}
-          subTitle={PERIOD_TO_LABEL[periodSelected]}
-          renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
-        />
-
-        <KeyValueList data={keyValueList} />
+        <Button onPress={openShareDialog}>Share</Button>
       </View>
-
-      <Button onPress={() => {}}>Share</Button>
     </View>
   );
 };

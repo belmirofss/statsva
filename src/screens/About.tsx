@@ -1,11 +1,32 @@
+import { View } from "react-native";
 import { ScreenContainer } from "../components/layout/ScreenContainer";
 import { Theme } from "../theme";
-import { AboutTheApp } from "../components/AboutTheApp";
+import { Text } from "react-native-paper";
+import { Logo } from "../components/imgs/Logo";
+import appInfo from "../../app.json";
 
 export const About = () => {
   return (
     <ScreenContainer style={{ gap: Theme.space.s }}>
-      <AboutTheApp />
+      <View style={{ gap: Theme.space.s }}>
+        <Text variant="headlineMedium" style={{ fontFamily: Theme.fonts.bold }}>
+          All your data is saved exclusively on your device.
+        </Text>
+        <Text variant="titleMedium">
+          Stats-va will never save or collect any information about you or your
+          account.
+        </Text>
+        <Text variant="titleMedium">
+          Stats-va is independent and has no relationship with Strava.
+        </Text>
+      </View>
+      <Logo />
+      <Text
+        variant="labelLarge"
+        style={{ fontFamily: Theme.fonts.bold, textAlign: "center" }}
+      >
+        Version: {appInfo.expo.version}
+      </Text>
     </ScreenContainer>
   );
 };

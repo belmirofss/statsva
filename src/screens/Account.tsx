@@ -1,11 +1,13 @@
 import { ScreenContainer } from "../components/layout/ScreenContainer";
 import { Theme } from "../theme";
-import { AboutTheApp } from "../components/AboutTheApp";
+import { Button } from "../components/layout/Button";
 
 export const Account = () => {
   return (
     <ScreenContainer style={{ gap: Theme.space.s }}>
-      <AboutTheApp />
+      <Button mode="outlined" onPress={() => {}}>
+        About the app
+      </Button>
     </ScreenContainer>
   );
 };

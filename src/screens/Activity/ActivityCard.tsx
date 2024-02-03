@@ -1,4 +1,3 @@
-import * as Sharing from "expo-sharing";
 import ViewShot from "react-native-view-shot";
 import { View } from "react-native";
 import { Activity } from "../../types";
@@ -8,35 +7,15 @@ import { Button } from "../../components/layout/Button";
 import { ActivityHeader } from "../../components/ActivityHeader";
 import { ActivityMainStats } from "./ActivityMainStats";
 import { ActivitySecondaryStats } from "./ActivitySecondaryStats";
-import { ActivityStatsvaLogo } from "./ActivityStatsvaLogo";
-import { ActivityProfile } from "./ActivityProfile";
-import { useRef } from "react";
+import { ShareBottom } from "../../components/ShareBottom";
+import { useShare } from "../../hooks/useShare";
 
 type Props = {
   activity: Activity;
 };
 
 export const ActivityCard = ({ activity }: Props) => {
-  const viewShotRef = useRef<ViewShot>(null);
-
-  const openShareDialog = async () => {
-    if (!(await Sharing.isAvailableAsync())) {
-      alert("Whoops! Sharing isn't available on your device!");
-      return;
-    }
-
-    if (viewShotRef.current?.capture) {
-      const uri = await viewShotRef.current.capture();
-
-      const options = {
-        mimeType: "image/jpeg",
-        dialogTitle: "Share your stats",
-        UTI: "image/jpeg",
-      };
-
-      await Sharing.shareAsync(uri, options);
-    }
-  };
+  const { viewShotRef, openShareDialog } = useShare();
 
   return (
     <View style={{ backgroundColor: Theme.colors.contrast }}>
@@ -45,6 +24,7 @@ export const ActivityCard = ({ activity }: Props) => {
         options={{
           format: "jpg",
           quality: 1,
+          fileName: `Stats-va - Activity ${activity.id}`,
         }}
       >
         <View
@@ -59,16 +39,7 @@ export const ActivityCard = ({ activity }: Props) => {
           <ActivityMainStats activity={activity} />
           {activity.map && <Map polyline={activity.map.summary_polyline} />}
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <ActivityStatsvaLogo />
-            <ActivityProfile />
-          </View>
+          <ShareBottom />
         </View>
       </ViewShot>
 
