@@ -18,7 +18,7 @@ export const ListItemActivity = React.memo(({ activity }: Props) => {
   return (
     <View
       style={{
-        backgroundColor: Theme.colors.contrast,
+        backgroundColor: Theme.colors.white,
         padding: Theme.space.m,
         gap: Theme.space.s,
       }}

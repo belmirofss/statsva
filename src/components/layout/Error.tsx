@@ -16,7 +16,7 @@ export const Error = () => {
         variant="titleMedium"
         style={{
           textAlign: "center",
-          color: Theme.colors.darken,
+          color: Theme.colors.dark,
           fontFamily: Theme.fonts.bold,
         }}
       >

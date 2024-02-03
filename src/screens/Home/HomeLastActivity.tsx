@@ -19,7 +19,7 @@ export const HomeLastActivity = ({ activity }: Props) => {
     <View
       style={{
         gap: Theme.space.m,
-        backgroundColor: Theme.colors.contrast,
+        backgroundColor: Theme.colors.white,
         padding: Theme.space.m,
       }}
     >

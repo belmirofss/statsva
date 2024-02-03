@@ -18,7 +18,7 @@ export const ActivityCard = ({ activity }: Props) => {
   const { viewShotRef, openShareDialog } = useShare();
 
   return (
-    <View style={{ backgroundColor: Theme.colors.contrast }}>
+    <View style={{ backgroundColor: Theme.colors.white }}>
       <ViewShot
         ref={viewShotRef}
         options={{
@@ -29,7 +29,7 @@ export const ActivityCard = ({ activity }: Props) => {
       >
         <View
           style={{
-            backgroundColor: Theme.colors.contrast,
+            backgroundColor: Theme.colors.white,
             padding: Theme.space.m,
             gap: Theme.space.m,
           }}

@@ -39,7 +39,7 @@ export const BuyMeACoffe = () => {
         {
           label: "No",
           onPress: dismiss,
-          textColor: Theme.colors.darken,
+          textColor: Theme.colors.dark,
         },
         {
           label: "Buy me a coffee",
@@ -56,7 +56,7 @@ export const BuyMeACoffe = () => {
         />
       )}
       style={{
-        backgroundColor: Theme.colors.contrast,
+        backgroundColor: Theme.colors.white,
       }}
       elevation={0}
     >

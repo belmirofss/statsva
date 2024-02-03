@@ -7,6 +7,7 @@ type Props = {
   onPress: () => void;
   mode?: ComponentProps<typeof PaperButton>["mode"];
   disabled?: boolean;
+  color?: string;
 };
 
 export const Button = ({
@@ -14,17 +15,29 @@ export const Button = ({
   onPress,
   mode = "contained",
   disabled = false,
+  color,
 }: Props) => {
-  const color =
-    mode === "outlined" ? Theme.colors.darken : Theme.colors.contrast;
+  const textColor =
+    mode === "outlined" ? color || Theme.colors.dark : Theme.colors.white;
 
   return (
-    <PaperButton mode={mode} onPress={onPress} disabled={disabled}>
+    <PaperButton
+      mode={mode}
+      onPress={onPress}
+      disabled={disabled}
+      theme={{
+        colors: color
+          ? {
+              primary: color,
+            }
+          : {},
+      }}
+    >
       <Text
         variant="titleMedium"
         style={{
           fontFamily: Theme.fonts.bold,
-          color,
+          color: textColor,
         }}
       >
         {children}

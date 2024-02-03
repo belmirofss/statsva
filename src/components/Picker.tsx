@@ -55,7 +55,7 @@ export const Picker = ({
       overlayAccessibilityLabel="Close picker"
       contentStyle={{
         borderRadius: Theme.roundness,
-        backgroundColor: Theme.colors.contrast,
+        backgroundColor: Theme.colors.white,
       }}
     >
       {items.map((item) => (

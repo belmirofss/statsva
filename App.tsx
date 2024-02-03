@@ -23,6 +23,7 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: Theme.colors.primary,
+    tertiary: Theme.colors.white,
   },
   fonts: configureFonts({
     config: {

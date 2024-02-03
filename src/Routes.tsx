@@ -21,7 +21,7 @@ const AuthenticatedBottomTabNavigator = () => {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Theme.colors.primary,
-        tabBarInactiveTintColor: Theme.colors.darken,
+        tabBarInactiveTintColor: Theme.colors.dark,
         tabBarShowLabel: false,
       }}
     >
@@ -80,6 +80,7 @@ export const Routes = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Activity" component={Activity} />
+        <Stack.Screen name="About" component={About} />
       </Stack.Navigator>
     );
   }

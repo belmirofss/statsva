@@ -90,7 +90,7 @@ export const HomeStats = ({ stats }: Props) => {
     <View
       style={{
         gap: Theme.space.m,
-        backgroundColor: Theme.colors.contrast,
+        backgroundColor: Theme.colors.white,
       }}
     >
       <View
@@ -125,7 +125,7 @@ export const HomeStats = ({ stats }: Props) => {
         <View
           style={{
             gap: Theme.space.s,
-            backgroundColor: Theme.colors.contrast,
+            backgroundColor: Theme.colors.white,
             padding: Theme.space.m,
           }}
         >

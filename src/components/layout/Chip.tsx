@@ -12,7 +12,7 @@ export const Chip = ({ title, content }: Props) => {
         flexDirection: "column",
         padding: Theme.space.s,
         borderWidth: 1,
-        borderColor: Theme.colors.darken,
+        borderColor: Theme.colors.dark,
         backgroundColor: Theme.colors.lightGray,
         borderRadius: 8,
       }}

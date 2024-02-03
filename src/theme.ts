@@ -1,10 +1,11 @@
 export const Theme = {
   colors: {
     primary: "#fc4c02",
-    contrast: '#fff',
-    darken: '#000',
+    white: '#fff',
+    dark: '#000',
     gray: '#d4d4d4',
-    lightGray: '#F6F6F6'
+    lightGray: '#F6F6F6',
+    red: '#D30000'
   },
   space: {
     xs: 4,
