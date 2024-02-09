@@ -22,7 +22,14 @@ export const Activities = () => {
           page={page}
           data={data || []}
           renderItem={(item) => (
-            <View style={{ marginBottom: Theme.space.xl }}>
+            <View
+              style={{
+                marginBottom: Theme.space.xl,
+                borderWidth: 1,
+                borderColor: Theme.colors.gray,
+                borderRadius: Theme.roundness,
+              }}
+            >
               <ListItemActivity activity={item} />
             </View>
           )}

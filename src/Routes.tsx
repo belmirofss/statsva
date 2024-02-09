@@ -23,6 +23,10 @@ const AuthenticatedBottomTabNavigator = () => {
         tabBarActiveTintColor: Theme.colors.primary,
         tabBarInactiveTintColor: Theme.colors.dark,
         tabBarShowLabel: false,
+        headerStyle: {
+          borderBottomColor: Theme.colors.gray,
+          borderBottomWidth: 1,
+        },
       }}
     >
       <Tab.Screen
@@ -73,7 +77,15 @@ export const Routes = () => {
 
   if (isAuthenticated) {
     return (
-      <Stack.Navigator initialRouteName="AuthenticatedBottomTabNavigator">
+      <Stack.Navigator
+        initialRouteName="AuthenticatedBottomTabNavigator"
+        screenOptions={{
+          headerStyle: {
+            borderBottomColor: Theme.colors.gray,
+            borderBottomWidth: 1,
+          },
+        }}
+      >
         <Stack.Screen
           name="AuthenticatedBottomTabNavigator"
           component={AuthenticatedBottomTabNavigator}

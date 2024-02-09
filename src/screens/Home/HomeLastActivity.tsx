@@ -19,8 +19,10 @@ export const HomeLastActivity = ({ activity }: Props) => {
     <View
       style={{
         gap: Theme.space.m,
-        backgroundColor: Theme.colors.white,
         padding: Theme.space.m,
+        borderWidth: 1,
+        borderColor: Theme.colors.gray,
+        borderRadius: Theme.roundness,
       }}
     >
       <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>

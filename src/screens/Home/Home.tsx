@@ -32,7 +32,7 @@ export const Home = () => {
       {isLoading && <Loading />}
       {isError && <Error />}
       {!isLoading && !isError && stats && activities && (
-        <View style={{ gap: Theme.space.l }}>
+        <View style={{ gap: Theme.space.m }}>
           <HomeStats stats={stats} />
           <BuyMeACoffe />
           {activities[0] && <HomeLastActivity activity={activities[0]} />}
