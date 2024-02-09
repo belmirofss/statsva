@@ -17,8 +17,8 @@ export const STRAVA_SCOPES = ["activity:read_all"];
 export const STRAVA_REDIRECT =
   "com.yabcompany.statsva://com.yabcompany.statsva";
 export const STRAVA_API_ENDPOINT = "https://www.strava.com/api/v3";
-
 export const BUY_ME_A_COFFEE_URL = "https://www.buymeacoffee.com/belmirofss";
+export const AD_UNIT_ID = "ca-app-pub-6575307967199593/3150546941";
 
 export const PERIOD_TO_LABEL: { [key in Period]: string } = {
   [Period.ALL_TIME]: "All time",

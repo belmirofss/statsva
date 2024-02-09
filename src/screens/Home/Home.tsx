@@ -10,6 +10,7 @@ import { HomeStats } from "./HomeStats";
 import { BuyMeACoffe } from "../../components/BuyMeACoffee";
 import { HomeLastActivity } from "./HomeLastActivity";
 import { useActivities } from "../../hooks/useActivities";
+import { Ad } from "../../components/Ad";
 
 export const Home = () => {
   const {
@@ -33,6 +34,7 @@ export const Home = () => {
       {isError && <Error />}
       {!isLoading && !isError && stats && activities && (
         <View style={{ gap: Theme.space.m }}>
+          <Ad />
           <HomeStats stats={stats} />
           <BuyMeACoffe />
           {activities[0] && <HomeLastActivity activity={activities[0]} />}
