@@ -39,7 +39,7 @@ export const Account = () => {
           {me?.firstname}
           {me?.lastname ? ` ${me.lastname}` : ""}
         </Text>
-        <Text variant="bodyLarge">@{me?.username}</Text>
+        {me?.username && <Text variant="bodyLarge">@{me.username}</Text>}
       </View>
       <View
         style={{
