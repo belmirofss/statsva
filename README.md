@@ -1,4 +1,4 @@
-![Stats-va](https://i.imgur.com/sIZOR6s.png](https://i.imgur.com/6AgYFZR.png) "Stats-va")
+![Stats-va](https://i.imgur.com/6AgYFZR.png "Stats-va")
 
 # Stats-va, powered Strava API
 
