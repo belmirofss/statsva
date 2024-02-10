@@ -66,7 +66,7 @@ export const ShareBottom = () => {
           >
             {name}
           </Text>
-          <Text variant="labelMedium">@{me?.username}</Text>
+          {me?.username && <Text variant="labelMedium">@{me.username}</Text>}
         </View>
       </View>
     </View>
