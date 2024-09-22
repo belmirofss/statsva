@@ -5,7 +5,7 @@ import { ITEMS_PER_PAGE } from "../../constants";
 type Props<T> = {
   page: number;
   data: T[];
-  renderItem: (item: T) => ReactElement;
+  renderItem: (item: T, index: number) => ReactElement;
   onEndReached: (page: number) => void;
 };
 
@@ -36,7 +36,7 @@ export const List = <T extends { id: number }>({
     <VirtualizedList
       data={renderData}
       keyExtractor={(item: T) => String(item.id)}
-      renderItem={({ item }) => renderItem(item)}
+      renderItem={({ item, index }) => renderItem(item, index)}
       onEndReached={() => {
         if (!reachedTheEnd) {
           onEndReached(page + 1);

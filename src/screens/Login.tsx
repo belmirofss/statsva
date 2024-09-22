@@ -9,6 +9,7 @@ import { Logo } from "../components/imgs/Logo";
 import { Button } from "../components/layout/Button";
 import { useNavigation } from "@react-navigation/native";
 import {
+  AD_INTERSTITIAL_UNIT_ID,
   AUTHORIZATION_ENDPOINT_STRAVA,
   REVOCATION_ENDPOINT_STRAVA,
   STRAVA_CLIENT_ID,
@@ -18,8 +19,13 @@ import {
 } from "../constants";
 import { useAppContext } from "../hooks/useAppContext";
 import { OverlayLoading } from "../components/layout/OverlayLoading";
+import { InterstitialAd, TestIds } from "react-native-google-mobile-ads";
 
 WebBrowser.maybeCompleteAuthSession();
+
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : AD_INTERSTITIAL_UNIT_ID;
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {});
 
 const discovery = {
   authorizationEndpoint: AUTHORIZATION_ENDPOINT_STRAVA,
@@ -49,6 +55,11 @@ export const Login = () => {
       authenticate(code);
     }
   }, [response]);
+
+  useEffect(() => {
+    // Pre-load interstitial ad
+    interstitial.load();
+  }, []);
 
   return (
     <ScreenContainer

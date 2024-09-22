@@ -8,6 +8,8 @@ import { ListItemActivity } from "./ListItemActivity";
 import { SummaryActivity } from "../../types";
 import { View } from "react-native";
 import { Theme } from "../../theme";
+import { AdBanner } from "../../components/AdBanner";
+import { AD_BANNER_ACTIVITIES_UNIT_ID } from "../../constants";
 
 export const Activities = () => {
   const [page, setPage] = useState(1);
@@ -21,16 +23,24 @@ export const Activities = () => {
         <List<SummaryActivity>
           page={page}
           data={data || []}
-          renderItem={(item) => (
-            <View
-              style={{
-                marginBottom: Theme.space.xl,
-                borderWidth: 1,
-                borderColor: Theme.colors.gray,
-                borderRadius: Theme.roundness,
-              }}
-            >
-              <ListItemActivity activity={item} />
+          renderItem={(item, index) => (
+            <View>
+              <View
+                style={{
+                  marginBottom: Theme.space.xl,
+                  borderWidth: 1,
+                  borderColor: Theme.colors.gray,
+                  borderRadius: Theme.roundness,
+                }}
+              >
+                <ListItemActivity activity={item} />
+              </View>
+
+              {index === 0 && (
+                <View style={{ marginBottom: Theme.space.xl }}>
+                  <AdBanner adUnitId={AD_BANNER_ACTIVITIES_UNIT_ID} />
+                </View>
+              )}
             </View>
           )}
           onEndReached={setPage}

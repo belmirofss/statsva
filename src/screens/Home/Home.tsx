@@ -4,13 +4,14 @@ import { ScreenContainer } from "../../components/layout/ScreenContainer";
 import { Loading } from "../../components/layout/Loading";
 import { Error } from "../../components/layout/Error";
 import { useAthleteStats } from "../../hooks/useAthleteStats";
-import { Button } from "../../components/layout/Button";
 import { Theme } from "../../theme";
 import { HomeStats } from "./HomeStats";
 import { BuyMeACoffe } from "../../components/BuyMeACoffee";
 import { HomeLastActivity } from "./HomeLastActivity";
 import { useActivities } from "../../hooks/useActivities";
-import { Ad } from "../../components/Ad";
+import { AdInterstitial } from "../../components/AdInterstitial";
+import { AdBanner } from "../../components/AdBanner";
+import { AD_BANNER_HOME_UNIT_ID } from "../../constants";
 
 export const Home = () => {
   const {
@@ -34,10 +35,11 @@ export const Home = () => {
       {isError && <Error />}
       {!isLoading && !isError && stats && activities && (
         <View style={{ gap: Theme.space.m }}>
-          <Ad />
+          <AdInterstitial />
           <HomeStats stats={stats} />
-          <BuyMeACoffe />
+          <AdBanner adUnitId={AD_BANNER_HOME_UNIT_ID} />
           {activities[0] && <HomeLastActivity activity={activities[0]} />}
+          <BuyMeACoffe />
         </View>
       )}
     </ScreenContainer>

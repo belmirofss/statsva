@@ -9,6 +9,8 @@ import { ActivityMainStats } from "./ActivityMainStats";
 import { ActivitySecondaryStats } from "./ActivitySecondaryStats";
 import { ShareBottom } from "../../components/ShareBottom";
 import { useShare } from "../../hooks/useShare";
+import { AdBanner } from "../../components/AdBanner";
+import { AD_BANNER_ACTIVITY_UNIT_ID } from "../../constants";
 
 type Props = {
   activity: Activity;
@@ -49,6 +51,10 @@ export const ActivityCard = ({ activity }: Props) => {
         }}
       >
         <Button onPress={openShareDialog}>Share</Button>
+      </View>
+
+      <View>
+        <AdBanner adUnitId={AD_BANNER_ACTIVITY_UNIT_ID} />
       </View>
     </>
   );

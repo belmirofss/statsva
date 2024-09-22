@@ -24,7 +24,7 @@ export const SummarizedActivityStats = ({ activity }: Props) => {
       content: formatTime(activity.moving_time),
     },
     {
-      title: "Pace",
+      title: "Speed",
       content: formatSpeed(activity.average_speed),
     },
     {

@@ -67,7 +67,7 @@ export const HomeStats = ({ stats }: Props) => {
       content: formatTime(moving_time),
     },
     {
-      title: "Pace",
+      title: "Speed",
       content: formatDistancePerHour(distance, moving_time),
     },
   ];
