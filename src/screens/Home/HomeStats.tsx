@@ -18,7 +18,7 @@ import {
 } from "../../constants";
 import { HomeStatsHeader } from "./HomeStatsHeader";
 import { KeyValueList } from "../../components/layout/KeyValueList";
-import { ShareBottom } from "../../components/ShareBottom";
+import { ShareFooter } from "../../components/ShareFooter";
 import { useShare } from "../../hooks/useShare";
 import ViewShot from "react-native-view-shot";
 
@@ -139,7 +139,7 @@ export const HomeStats = ({ stats }: Props) => {
 
           <KeyValueList data={keyValueList} />
           <View style={{ marginTop: Theme.space.xs }}>
-            <ShareBottom />
+            <ShareFooter />
           </View>
         </View>
       </ViewShot>

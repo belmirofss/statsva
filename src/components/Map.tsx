@@ -53,7 +53,7 @@ export const Map = ({ polyline }: Props) => {
           scrollDuringRotateOrZoomEnabled={false}
           pitchEnabled={false}
           toolbarEnabled={false}
-          mapType="standard"
+          mapType="satellite"
           onMapLoaded={() => {
             if (map.current) {
               map.current.fitToCoordinates(coordinates, {

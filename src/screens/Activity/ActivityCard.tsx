@@ -7,10 +7,11 @@ import { Button } from "../../components/layout/Button";
 import { ActivityHeader } from "../../components/ActivityHeader";
 import { ActivityMainStats } from "./ActivityMainStats";
 import { ActivitySecondaryStats } from "./ActivitySecondaryStats";
-import { ShareBottom } from "../../components/ShareBottom";
+import { ShareFooter } from "../../components/ShareFooter";
 import { useShare } from "../../hooks/useShare";
 import { AdBanner } from "../../components/AdBanner";
 import { AD_BANNER_ACTIVITY_UNIT_ID } from "../../constants";
+import React from "react";
 
 type Props = {
   activity: Activity;
@@ -20,7 +21,7 @@ export const ActivityCard = ({ activity }: Props) => {
   const { viewShotRef, openShareDialog } = useShare();
 
   return (
-    <>
+    <View style={{ gap: Theme.space.s }}>
       <ViewShot
         ref={viewShotRef}
         options={{
@@ -32,7 +33,7 @@ export const ActivityCard = ({ activity }: Props) => {
         <View
           style={{
             backgroundColor: Theme.colors.white,
-            padding: Theme.space.m,
+            padding: Theme.space.s,
             gap: Theme.space.m,
           }}
         >
@@ -41,21 +42,13 @@ export const ActivityCard = ({ activity }: Props) => {
           <ActivityMainStats activity={activity} />
           {activity.map && <Map polyline={activity.map.summary_polyline} />}
 
-          <ShareBottom />
+          <ShareFooter />
         </View>
       </ViewShot>
 
-      <View
-        style={{
-          padding: Theme.space.m,
-        }}
-      >
-        <Button onPress={openShareDialog}>Share</Button>
-      </View>
+      <Button onPress={openShareDialog}>Share</Button>
 
-      <View>
-        <AdBanner adUnitId={AD_BANNER_ACTIVITY_UNIT_ID} />
-      </View>
-    </>
+      <AdBanner adUnitId={AD_BANNER_ACTIVITY_UNIT_ID} />
+    </View>
   );
 };

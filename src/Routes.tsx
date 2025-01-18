@@ -26,6 +26,7 @@ const AuthenticatedBottomTabNavigator = () => {
         headerStyle: {
           borderBottomColor: Theme.colors.gray,
           borderBottomWidth: 1,
+          height: 100,
         },
       }}
     >
@@ -83,6 +84,7 @@ export const Routes = () => {
           headerStyle: {
             borderBottomColor: Theme.colors.gray,
             borderBottomWidth: 1,
+            height: 100,
           },
         }}
       >

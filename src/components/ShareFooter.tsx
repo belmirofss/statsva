@@ -5,7 +5,7 @@ import { Logo } from "./imgs/Logo";
 import { Theme } from "../theme";
 import { SquareImg } from "./imgs/SquareImg";
 
-export const ShareBottom = () => {
+export const ShareFooter = () => {
   const { me } = useAppContext();
 
   if (!me) {
