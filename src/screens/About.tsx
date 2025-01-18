@@ -9,7 +9,7 @@ export const About = () => {
   return (
     <ScreenContainer style={{ gap: Theme.space.s }}>
       <View style={{ gap: Theme.space.s }}>
-        <Text variant="headlineMedium" style={{ fontFamily: Theme.fonts.bold }}>
+        <Text variant="headlineSmall" style={{ fontFamily: Theme.fonts.bold }}>
           All your data is saved exclusively on your device.
         </Text>
         <Text variant="titleMedium">
@@ -20,7 +20,7 @@ export const About = () => {
           Stats-va is independent and has no relationship with Strava.
         </Text>
       </View>
-      <Logo />
+      <Logo size={64} />
       <Text
         variant="labelLarge"
         style={{ fontFamily: Theme.fonts.bold, textAlign: "center" }}

@@ -64,21 +64,26 @@ export const Login = () => {
   return (
     <ScreenContainer
       style={{
-        justifyContent: "flex-end",
-        gap: Theme.space.s,
+        justifyContent: "center",
+        gap: Theme.space.m,
       }}
     >
-      <Logo />
+      <View style={{ alignItems: "center" }}>
+        <Logo />
+      </View>
 
       {isAuthenticating && (
         <OverlayLoading title="Connecting with your Strava account..." />
       )}
 
       <View style={{ gap: Theme.space.xs }}>
-        <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
+        <Text
+          variant="titleLarge"
+          style={{ fontFamily: Theme.fonts.bold, textAlign: "center" }}
+        >
           Hello, welcome to Stats-va!
         </Text>
-        <Text variant="titleMedium">
+        <Text variant="titleMedium" style={{ textAlign: "center" }}>
           Connect with your Strava account to see and share your stats
         </Text>
       </View>
