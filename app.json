@@ -68,7 +68,9 @@
         {
           "androidXBrowser": "1.4.0"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-secure-store"
     ]
   },
   "react-native-google-mobile-ads": {
