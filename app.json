@@ -7,11 +7,6 @@
     "icon": "./assets/icon.png",
     "scheme": "com.yabcompany.statsva",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#fc4c02"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -59,21 +54,26 @@
             "buildToolsVersion": "34.0.0"
           },
           "ios": {
-            "deploymentTarget": "13.4"
+            "deploymentTarget": "15.1"
           }
         }
       ],
       [
-        "expo-gradle-ext-vars",
+        "react-native-google-mobile-ads",
         {
-          "androidXBrowser": "1.4.0"
+          "androidAppId": "ca-app-pub-6575307967199593~6881451549"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#fc4c02",
+          "image": "./assets/splash.png",
+          "imageWidth": 250
         }
       ],
       "expo-font",
       "expo-secure-store"
     ]
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-6575307967199593~6881451549"
   }
 }
