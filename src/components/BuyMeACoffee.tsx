@@ -57,8 +57,6 @@ export const BuyMeACoffe = () => {
       )}
       style={{
         backgroundColor: Theme.colors.white,
-        borderWidth: 1,
-        borderColor: Theme.colors.gray,
         borderRadius: Theme.roundness,
       }}
       elevation={0}

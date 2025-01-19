@@ -90,9 +90,8 @@ export const HomeStats = ({ stats }: Props) => {
     <View
       style={{
         gap: Theme.space.m,
-        borderWidth: 1,
-        borderColor: Theme.colors.gray,
         borderRadius: Theme.roundness,
+        backgroundColor: Theme.colors.white,
       }}
     >
       <View

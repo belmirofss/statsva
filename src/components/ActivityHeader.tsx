@@ -15,7 +15,7 @@ export const ActivityHeader = ({ activity }: Props) => {
       style={{
         flexDirection: "column",
         flex: 1,
-        gap: Theme.space.s,
+        gap: Theme.space.m,
       }}
     >
       <View

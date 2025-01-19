@@ -20,9 +20,8 @@ export const HomeLastActivity = ({ activity }: Props) => {
       style={{
         gap: Theme.space.m,
         padding: Theme.space.m,
-        borderWidth: 1,
-        borderColor: Theme.colors.gray,
         borderRadius: Theme.roundness,
+        backgroundColor: Theme.colors.white,
       }}
     >
       <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
@@ -32,7 +31,9 @@ export const HomeLastActivity = ({ activity }: Props) => {
       <View style={{ gap: Theme.space.m }}>
         <ActivityHeader activity={activity} />
         <SummarizedActivityStats activity={activity} />
-        {activity.map && <Map polyline={activity.map.summary_polyline} />}
+        {activity.map?.summary_polyline && (
+          <Map polyline={activity.map.summary_polyline} />
+        )}
         <Button
           mode="contained"
           onPress={() => {

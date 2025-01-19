@@ -21,7 +21,12 @@ export const ActivityCard = ({ activity }: Props) => {
   const { viewShotRef, openShareDialog } = useShare();
 
   return (
-    <View style={{ gap: Theme.space.s }}>
+    <View
+      style={{
+        gap: Theme.space.s,
+        paddingBottom: 48,
+      }}
+    >
       <ViewShot
         ref={viewShotRef}
         options={{
@@ -33,14 +38,17 @@ export const ActivityCard = ({ activity }: Props) => {
         <View
           style={{
             backgroundColor: Theme.colors.white,
-            padding: Theme.space.s,
+            padding: Theme.space.m,
             gap: Theme.space.m,
+            borderRadius: Theme.roundness,
           }}
         >
           <ActivityHeader activity={activity} />
           <ActivitySecondaryStats activity={activity} />
           <ActivityMainStats activity={activity} />
-          {activity.map && <Map polyline={activity.map.summary_polyline} />}
+          {activity.map?.summary_polyline && (
+            <Map polyline={activity.map.summary_polyline} />
+          )}
 
           <ShareFooter />
         </View>

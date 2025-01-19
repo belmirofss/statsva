@@ -21,12 +21,15 @@ export const ListItemActivity = React.memo(({ activity }: Props) => {
         backgroundColor: Theme.colors.white,
         padding: Theme.space.m,
         gap: Theme.space.s,
+        borderRadius: Theme.roundness,
       }}
     >
       <ActivityHeader activity={activity} />
 
       <SummarizedActivityStats activity={activity} />
-      {activity.map && <Map polyline={activity.map.summary_polyline} />}
+      {activity.map?.summary_polyline && (
+        <Map polyline={activity.map.summary_polyline} />
+      )}
       <Button
         mode="contained"
         onPress={() => {

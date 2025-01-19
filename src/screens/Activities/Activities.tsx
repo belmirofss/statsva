@@ -28,9 +28,6 @@ export const Activities = () => {
               <View
                 style={{
                   marginBottom: Theme.space.xl,
-                  borderWidth: 1,
-                  borderColor: Theme.colors.gray,
-                  borderRadius: Theme.roundness,
                 }}
               >
                 <ListItemActivity activity={item} />
