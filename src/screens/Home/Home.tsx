@@ -9,7 +9,6 @@ import { HomeStats } from "./HomeStats";
 import { BuyMeACoffe } from "../../components/BuyMeACoffee";
 import { HomeLastActivity } from "./HomeLastActivity";
 import { useActivities } from "../../hooks/useActivities";
-import { AdInterstitial } from "../../components/AdInterstitial";
 import { AdBanner } from "../../components/AdBanner";
 import { AD_BANNER_HOME_UNIT_ID } from "../../constants";
 
@@ -35,7 +34,6 @@ export const Home = () => {
       {isError && <Error />}
       {!isLoading && !isError && stats && activities && (
         <View style={{ gap: Theme.space.m }}>
-          <AdInterstitial />
           <HomeStats stats={stats} />
           <AdBanner adUnitId={AD_BANNER_HOME_UNIT_ID} />
           {activities[0] && <HomeLastActivity activity={activities[0]} />}

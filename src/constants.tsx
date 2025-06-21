@@ -18,7 +18,6 @@ export const STRAVA_REDIRECT =
   "com.yabcompany.statsva://com.yabcompany.statsva";
 export const STRAVA_API_ENDPOINT = "https://www.strava.com/api/v3";
 export const BUY_ME_A_COFFEE_URL = "https://www.buymeacoffee.com/belmirofss";
-export const AD_INTERSTITIAL_UNIT_ID = "ca-app-pub-6575307967199593/3150546941";
 export const AD_BANNER_HOME_UNIT_ID = "ca-app-pub-6575307967199593/9508618185";
 export const AD_BANNER_ACTIVITIES_UNIT_ID =
   "ca-app-pub-6575307967199593/6087150444";
@@ -105,7 +104,7 @@ export const SPORT_TYPE_TO_ICON: { [key in SportType]: () => ReactElement } = {
   [SportType.INLINE_SKATE]: () => <OtherImg />,
   [SportType.KAYAKING]: () => <OtherImg />,
   [SportType.KITESURF]: () => <OtherImg />,
-  [SportType.MOUNTAIN_BIKE_RIDE]: () => <OtherImg />,
+  [SportType.MOUNTAIN_BIKE_RIDE]: () => <BikingImg />,
   [SportType.NORDIC_SKI]: () => <OtherImg />,
   [SportType.PICKLEBALL]: () => <OtherImg />,
   [SportType.PILATES]: () => <OtherImg />,

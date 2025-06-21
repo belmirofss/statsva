@@ -9,11 +9,9 @@ type AppContextData = {
   isAuthenticated: boolean;
   isAuthenticating: boolean;
   isErrorOnAuthentication: boolean;
-  adShowed: boolean;
   me?: SummaryAthlete;
   authenticate: (token: string) => void;
   logout: () => void;
-  markAdAsShowed: () => void;
 };
 
 const AppContext = createContext<AppContextData>({} as AppContextData);
@@ -26,7 +24,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [isErrorOnAuthentication, setIsErrorOnAuthentication] = useState(false);
-  const [adShowed, setAdShowed] = useState(false);
   const [me, setMe] = useState<SummaryAthlete>();
 
   const { mutateAsync: performStravaOauthToken } = useStravaOauthToken();
@@ -54,8 +51,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setIsAuthenticating(false);
       });
   };
-
-  const markAdAsShowed = () => setAdShowed(true);
 
   const logout = () => {
     delete API.defaults.headers.common["Authorization"];
@@ -85,11 +80,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         isAuthenticated,
         isAuthenticating,
         isErrorOnAuthentication,
-        adShowed,
         me,
         authenticate,
         logout,
-        markAdAsShowed,
       }}
     >
       {children}
