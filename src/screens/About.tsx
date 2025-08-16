@@ -3,7 +3,6 @@ import { ScreenContainer } from "../components/layout/ScreenContainer";
 import { Theme } from "../theme";
 import { Text } from "react-native-paper";
 import { Logo } from "../components/imgs/Logo";
-import appInfo from "../../app.json";
 
 export const About = () => {
   return (
@@ -21,12 +20,6 @@ export const About = () => {
         </Text>
       </View>
       <Logo size={64} />
-      <Text
-        variant="labelLarge"
-        style={{ fontFamily: Theme.fonts.bold, textAlign: "center" }}
-      >
-        Version: {appInfo.expo.version}
-      </Text>
     </ScreenContainer>
   );
 };
