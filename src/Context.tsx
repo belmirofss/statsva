@@ -1,7 +1,6 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import * as SecureStore from "expo-secure-store";
-import { ACCESS_TOKEN_KEY } from "./constants";
+import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import API from "./api";
+import { revokeStoredSession, storeSession } from "./session";
 import { useStravaOauthToken } from "./hooks/useStravaOauthToken";
 import { SummaryAthlete } from "./types";
 
@@ -26,13 +25,16 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [isErrorOnAuthentication, setIsErrorOnAuthentication] = useState(false);
   const [me, setMe] = useState<SummaryAthlete>();
 
+  const pendingRevocation = useRef<Promise<void>>(Promise.resolve());
+
   const { mutateAsync: performStravaOauthToken } = useStravaOauthToken();
 
   const setUpToken = async (code: string) => {
+    await pendingRevocation.current;
     const response = await performStravaOauthToken({ code });
-    const { access_token: token, athlete } = response.data;
+    const { access_token: token, refresh_token, athlete } = response.data;
     setMe(athlete);
-    await SecureStore.setItemAsync(ACCESS_TOKEN_KEY, token);
+    await storeSession(token, refresh_token);
     API.defaults.headers.common["Authorization"] = "Bearer " + token;
   };
 
@@ -54,9 +56,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   const logout = () => {
     delete API.defaults.headers.common["Authorization"];
-    SecureStore.deleteItemAsync(ACCESS_TOKEN_KEY).then(() =>
-      setIsAuthenticated(false)
-    );
+    setIsAuthenticated(false);
+    pendingRevocation.current =
+      pendingRevocation.current.then(revokeStoredSession);
   };
 
   useEffect(() => {
@@ -68,7 +70,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           logout();
         }
         return Promise.reject(error);
-      }
+      },
     );
 
     logout();

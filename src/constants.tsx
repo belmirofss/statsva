@@ -7,6 +7,7 @@ import { OtherImg } from "./components/imgs/OtherImg";
 
 export const ITEMS_PER_PAGE = 5;
 export const ACCESS_TOKEN_KEY = "Statsva_Access_Token";
+export const REFRESH_TOKEN_KEY = "Statsva_Refresh_Token";
 export const AUTHORIZATION_ENDPOINT_STRAVA =
   "https://www.strava.com/oauth/mobile/authorize";
 export const TOKEN_ENDPOINT_STRAVA = "https://www.strava.com/oauth/token";
