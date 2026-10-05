@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Stats-va",
   slug: "statsva",
-  version: "1.5.0",
+  version: "2.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
   scheme: "com.yabcompany.statsva",
