@@ -83,8 +83,8 @@ export const Home = () => {
         {stats.data && <HomeStats stats={stats.data} />}
         {!isLoading && <AdBanner adUnitId={AD_BANNER_HOME_UNIT_ID} />}
         {latest && <HomeLatestActivity activity={latest} />}
-        {recent.data && <HomeHeatmap activities={recent.data} />}
         {stats.data && <HomeBests stats={stats.data} />}
+        {recent.data && <HomeHeatmap activities={recent.data} />}
         {!isLoading && <BuyMeACoffe />}
       </Animated.ScrollView>
 

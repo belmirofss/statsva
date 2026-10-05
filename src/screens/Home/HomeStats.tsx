@@ -98,19 +98,7 @@ export const HomeStats = ({ stats }: Props) => {
   ];
 
   return (
-    <View style={{ gap: Theme.space.m }}>
-      <View style={{ paddingHorizontal: Theme.gutter }}>
-        <SegmentedControl
-          value={sport}
-          onChange={setSport}
-          options={SPORTS.map((value) => ({
-            value,
-            label: SPORT_TYPE_TO_LABEL[value],
-            icon: SPORT_TYPE_TO_ICON[value],
-          }))}
-        />
-      </View>
-
+    <>
       <Card
         style={{
           marginHorizontal: Theme.gutter,
@@ -119,6 +107,16 @@ export const HomeStats = ({ stats }: Props) => {
           gap: Theme.space.m,
         }}
       >
+        <SegmentedControl
+          value={sport}
+          onChange={setSport}
+          trackColor={Theme.colors.background}
+          options={SPORTS.map((value) => ({
+            value,
+            label: SPORT_TYPE_TO_LABEL[value],
+            icon: SPORT_TYPE_TO_ICON[value],
+          }))}
+        />
         <View
           style={{
             flexDirection: "row",
@@ -192,6 +190,6 @@ export const HomeStats = ({ stats }: Props) => {
           stats: items.filter(({ title }) => title !== "Activities"),
         }}
       />
-    </View>
+    </>
   );
 };

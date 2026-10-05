@@ -14,12 +14,14 @@ type Props<T> = {
   options: Option<T>[];
   value: T;
   onChange: (value: T) => void;
+  trackColor?: string;
 };
 
 export const SegmentedControl = <T extends string>({
   options,
   value,
   onChange,
+  trackColor = Theme.colors.control,
 }: Props<T>) => {
   return (
     <View
@@ -29,7 +31,7 @@ export const SegmentedControl = <T extends string>({
         gap: Theme.space.xs,
         padding: Theme.space.xs,
         borderRadius: 14,
-        backgroundColor: Theme.colors.control,
+        backgroundColor: trackColor,
       }}
     >
       {options.map((option) => {
