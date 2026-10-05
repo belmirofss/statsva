@@ -2,7 +2,7 @@ import "expo-dev-client";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NavigationContainer } from "@react-navigation/native";
 import ubuntuBold from "./src/fonts/Ubuntu-Bold.ttf";
 import ubuntuRegular from "./src/fonts/Ubuntu-Regular.ttf";

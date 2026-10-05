@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Stats-va is an Expo (SDK 52) / React Native 0.76 mobile app (TypeScript, strict) that shows and shares a user's Strava activity stats. Published on Android as `com.yabcompany.statsva`.
+Stats-va is an Expo (SDK 54) / React Native 0.81 mobile app (TypeScript, strict) that shows and shares a user's Strava activity stats. Published on Android as `com.yabcompany.statsva`.
 
 ## Commands
 
@@ -21,7 +21,7 @@ There is no test suite or linter configured.
 
 ## Architecture
 
-- **Entry**: `App.tsx` loads Ubuntu fonts, holds the splash screen, and wraps the app in `QueryClientProvider` (react-query v3, 5-min staleTime) → `PaperProvider` (MD3 theme built from `src/theme.ts`) → `AppProvider` → `NavigationContainer`.
+- **Entry**: `App.tsx` loads Ubuntu fonts, holds the splash screen, and wraps the app in `QueryClientProvider` (@tanstack/react-query v5, 5-min staleTime) → `PaperProvider` (MD3 theme built from `src/theme.ts`) → `AppProvider` → `NavigationContainer`.
 - **Auth** (`src/Context.tsx`, `src/screens/Login.tsx`): Strava OAuth via `expo-auth-session` returns a code; `AppProvider.authenticate` exchanges it through `useStravaOauthToken` (POST `/oauth/token` with the client secret), stores the access + refresh tokens in SecureStore (`src/session.ts`), and sets the access token as the default `Authorization` header on the shared axios instance (`src/api.ts`). A response interceptor logs out on 401. `logout()` runs on mount, so sessions are not persisted across app launches. Every logout (including the one on mount, which catches sessions left over from a previous launch) calls Strava's `/oauth/deauthorize` via `revokeStoredSession`, refreshing first if the access token expired. This keeps the app under Strava's connected-athlete limit, so don't remove it. Deauthorizing revokes all of that athlete's tokens, so `authenticate` waits for any pending revocation before exchanging a new code.
 - **Navigation** (`src/Routes.tsx`): unauthenticated stack (Login, About) vs. authenticated stack containing a bottom-tab navigator (Home, Activities, Account) plus Activity and About screens.
 - **Data hooks** (`src/hooks/`): one react-query hook per Strava endpoint (`useActivities`, `useActivity`, `useAthleteStats`), each using `select` to unwrap `response.data`. Access app state via `useAppContext`.

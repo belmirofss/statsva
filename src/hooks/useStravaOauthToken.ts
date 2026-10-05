@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import API from "../api";
 import { STRAVA_CLIENT_ID } from "../constants";
 import { SummaryAthlete } from "../types";
@@ -14,19 +14,21 @@ type Response = {
 };
 
 export const useStravaOauthToken = () => {
-  return useMutation("OAUTH_TOKEN", ({ code }: { code: string }) =>
-    API.post<Response>(
-      "/oauth/token",
-      {},
-      {
-        params: {
-          client_id: STRAVA_CLIENT_ID,
-          client_secret:
-            STRAVA_CLIENT_SECRET || process.env.STRAVA_CLIENT_SECRET,
-          code,
-          grant_type: "authorization_code",
-        },
-      }
-    )
-  );
+  return useMutation({
+    mutationKey: ["OAUTH_TOKEN"],
+    mutationFn: ({ code }: { code: string }) =>
+      API.post<Response>(
+        "/oauth/token",
+        {},
+        {
+          params: {
+            client_id: STRAVA_CLIENT_ID,
+            client_secret:
+              STRAVA_CLIENT_SECRET || process.env.STRAVA_CLIENT_SECRET,
+            code,
+            grant_type: "authorization_code",
+          },
+        }
+      ),
+  });
 };
