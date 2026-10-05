@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Stats-va",
   slug: "statsva",
-  version: "1.4.2",
+  version: "1.4.3",
   orientation: "portrait",
   icon: "./assets/icon.png",
   scheme: "com.yabcompany.statsva",
@@ -15,7 +15,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: "com.yabcompany.statsva",
-    versionCode: 14,
+    versionCode: 15,
     adaptiveIcon: {
       foregroundImage: "./assets/adaptive-icon.png",
       backgroundColor: "#fc4c02",
