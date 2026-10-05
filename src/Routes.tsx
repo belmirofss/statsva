@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Login } from "./screens/Login";
+import { Login } from "./screens/Login/Login";
 import { useAppContext } from "./hooks/useAppContext";
 import { About } from "./screens/About";
 import { Home } from "./screens/Home/Home";

@@ -19,6 +19,9 @@ export const STRAVA_REDIRECT =
   "com.yabcompany.statsva://com.yabcompany.statsva";
 export const STRAVA_API_ENDPOINT = "https://www.strava.com/api/v3";
 export const BUY_ME_A_COFFEE_URL = "https://www.buymeacoffee.com/belmirofss";
+export const SOURCE_CODE_URL = "https://github.com/belmirofss/statsva";
+export const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.yabcompany.statsva";
 export const AD_BANNER_HOME_UNIT_ID = "ca-app-pub-6575307967199593/9508618185";
 export const AD_BANNER_ACTIVITIES_UNIT_ID =
   "ca-app-pub-6575307967199593/6087150444";
