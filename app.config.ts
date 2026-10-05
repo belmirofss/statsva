@@ -15,12 +15,21 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: "com.yabcompany.statsva",
-    versionCode: 16,
+    versionCode: 17,
     adaptiveIcon: {
       foregroundImage: "./assets/adaptive-icon.png",
       backgroundColor: "#fc4c02",
     },
     permissions: ["com.google.android.gms.permission.AD_ID"],
+    // Play policy forbids broad media access when a system picker would do;
+    // sharing only writes to the app cache, so none of these are needed.
+    blockedPermissions: [
+      "android.permission.READ_MEDIA_IMAGES",
+      "android.permission.READ_MEDIA_VIDEO",
+      "android.permission.READ_MEDIA_AUDIO",
+      "android.permission.READ_EXTERNAL_STORAGE",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
+    ],
     config: {
       googleMaps: {
         apiKey: process.env.GOOGLE_MAPS_API_KEY || "",
