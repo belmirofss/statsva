@@ -1,11 +1,11 @@
-import { SwimmingImg } from "./components/imgs/SwimmingImg";
-import { RunningImg } from "./components/imgs/RunningImg";
-import { BikingImg } from "./components/imgs/BikingImg";
+import { ComponentProps } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Period, SportType } from "./types";
-import { ReactElement } from "react";
-import { OtherImg } from "./components/imgs/OtherImg";
 
-export const ITEMS_PER_PAGE = 5;
+export type IconName = ComponentProps<typeof MaterialCommunityIcons>["name"];
+
+export const ITEMS_PER_PAGE = 30;
+export const RECENT_WEEKS = 12;
 export const ACCESS_TOKEN_KEY = "Statsva_Access_Token";
 export const REFRESH_TOKEN_KEY = "Statsva_Refresh_Token";
 export const AUTHORIZATION_ENDPOINT_STRAVA =
@@ -31,6 +31,12 @@ export const PERIOD_TO_LABEL: { [key in Period]: string } = {
   [Period.LAST_4_WEEKS]: "Last 4 weeks",
 };
 
+export const PERIOD_TO_SHORT_LABEL: { [key in Period]: string } = {
+  [Period.LAST_4_WEEKS]: "4 weeks",
+  [Period.YEAR_TO_DATE]: "This year",
+  [Period.ALL_TIME]: "All time",
+};
+
 export const SPORT_TYPE_TO_LABEL: { [key in SportType]: string } = {
   [SportType.RIDE]: "Ride",
   [SportType.RUN]: "Run",
@@ -38,7 +44,7 @@ export const SPORT_TYPE_TO_LABEL: { [key in SportType]: string } = {
   [SportType.ALPINE_SKI]: "Alpine Ski",
   [SportType.BACKCOUNTRY_SKI]: "Backcountry Ski",
   [SportType.BADMINTON]: "Badminton",
-  [SportType.CANOEING]: "Conoeing",
+  [SportType.CANOEING]: "Canoeing",
   [SportType.CROSSFIT]: "Crossfit",
   [SportType.ELLIPTICAL]: "Elliptical",
   [SportType.E_BIKE_RIDE]: "E-Bike Ride",
@@ -51,7 +57,7 @@ export const SPORT_TYPE_TO_LABEL: { [key in SportType]: string } = {
   [SportType.ICE_SKATE]: "Ice Skate",
   [SportType.INLINE_SKATE]: "Inline Skate",
   [SportType.KAYAKING]: "Kayaking",
-  [SportType.KITESURF]: "kitesurf",
+  [SportType.KITESURF]: "Kitesurf",
   [SportType.MOUNTAIN_BIKE_RIDE]: "Mountain Bike Ride",
   [SportType.NORDIC_SKI]: "Nordic Ski",
   [SportType.PICKLEBALL]: "Pickleball",
@@ -76,7 +82,7 @@ export const SPORT_TYPE_TO_LABEL: { [key in SportType]: string } = {
   [SportType.VIRTUAL_RIDE]: "Virtual Ride",
   [SportType.VIRTUAL_ROW]: "Virtual Row",
   [SportType.VIRTUAL_RUN]: "Virtual Run",
-  [SportType.WALK]: "Run",
+  [SportType.WALK]: "Walk",
   [SportType.WEIGHT_TRAINING]: "Weight Training",
   [SportType.WHEELCHAIR]: "Wheelchair",
   [SportType.WINDSURF]: "Windsurf",
@@ -84,55 +90,72 @@ export const SPORT_TYPE_TO_LABEL: { [key in SportType]: string } = {
   [SportType.YOGA]: "Yoga",
 };
 
-export const SPORT_TYPE_TO_ICON: { [key in SportType]: () => ReactElement } = {
-  [SportType.RIDE]: () => <BikingImg />,
-  [SportType.RUN]: () => <RunningImg />,
-  [SportType.SWIM]: () => <SwimmingImg />,
-  [SportType.ALPINE_SKI]: () => <OtherImg />,
-  [SportType.BACKCOUNTRY_SKI]: () => <OtherImg />,
-  [SportType.BADMINTON]: () => <OtherImg />,
-  [SportType.CANOEING]: () => <OtherImg />,
-  [SportType.CROSSFIT]: () => <OtherImg />,
-  [SportType.ELLIPTICAL]: () => <OtherImg />,
-  [SportType.E_BIKE_RIDE]: () => <OtherImg />,
-  [SportType.E_MOUNTAIN_BIKE_RIDE]: () => <OtherImg />,
-  [SportType.GOLF]: () => <OtherImg />,
-  [SportType.GRAVEL_RIDE]: () => <OtherImg />,
-  [SportType.HANDCYCLE]: () => <OtherImg />,
-  [SportType.HIGH_INTENSITY_INTERVAL_TRAINING]: () => <OtherImg />,
-  [SportType.HIKE]: () => <OtherImg />,
-  [SportType.ICE_SKATE]: () => <OtherImg />,
-  [SportType.INLINE_SKATE]: () => <OtherImg />,
-  [SportType.KAYAKING]: () => <OtherImg />,
-  [SportType.KITESURF]: () => <OtherImg />,
-  [SportType.MOUNTAIN_BIKE_RIDE]: () => <BikingImg />,
-  [SportType.NORDIC_SKI]: () => <OtherImg />,
-  [SportType.PICKLEBALL]: () => <OtherImg />,
-  [SportType.PILATES]: () => <OtherImg />,
-  [SportType.RACQUETBALL]: () => <OtherImg />,
-  [SportType.ROCK_CLIMBING]: () => <OtherImg />,
-  [SportType.ROLLER_SKI]: () => <OtherImg />,
-  [SportType.ROWING]: () => <OtherImg />,
-  [SportType.SAIL]: () => <OtherImg />,
-  [SportType.SKATEBOARD]: () => <OtherImg />,
-  [SportType.SNOWBOARD]: () => <OtherImg />,
-  [SportType.SNOWSHOE]: () => <OtherImg />,
-  [SportType.SOCCER]: () => <OtherImg />,
-  [SportType.SQUASH]: () => <OtherImg />,
-  [SportType.STAIR_STEPPER]: () => <OtherImg />,
-  [SportType.STAND_UP_PADDLING]: () => <OtherImg />,
-  [SportType.SURFING]: () => <OtherImg />,
-  [SportType.TABLE_TENNIS]: () => <OtherImg />,
-  [SportType.TENNIS]: () => <OtherImg />,
-  [SportType.TRAIL_RUN]: () => <OtherImg />,
-  [SportType.VELOMOBILE]: () => <OtherImg />,
-  [SportType.VIRTUAL_RIDE]: () => <OtherImg />,
-  [SportType.VIRTUAL_ROW]: () => <OtherImg />,
-  [SportType.VIRTUAL_RUN]: () => <OtherImg />,
-  [SportType.WALK]: () => <RunningImg />,
-  [SportType.WEIGHT_TRAINING]: () => <OtherImg />,
-  [SportType.WHEELCHAIR]: () => <OtherImg />,
-  [SportType.WINDSURF]: () => <OtherImg />,
-  [SportType.WORKOUT]: () => <OtherImg />,
-  [SportType.YOGA]: () => <OtherImg />,
+export const SPORT_TYPE_TO_ICON: { [key in SportType]: IconName } = {
+  [SportType.RIDE]: "bike",
+  [SportType.RUN]: "run",
+  [SportType.SWIM]: "swim",
+  [SportType.ALPINE_SKI]: "ski",
+  [SportType.BACKCOUNTRY_SKI]: "ski",
+  [SportType.BADMINTON]: "badminton",
+  [SportType.CANOEING]: "kayaking",
+  [SportType.CROSSFIT]: "dumbbell",
+  [SportType.ELLIPTICAL]: "run",
+  [SportType.E_BIKE_RIDE]: "bike",
+  [SportType.E_MOUNTAIN_BIKE_RIDE]: "bike",
+  [SportType.GOLF]: "golf",
+  [SportType.GRAVEL_RIDE]: "bike",
+  [SportType.HANDCYCLE]: "wheelchair-accessibility",
+  [SportType.HIGH_INTENSITY_INTERVAL_TRAINING]: "lightning-bolt",
+  [SportType.HIKE]: "hiking",
+  [SportType.ICE_SKATE]: "skate",
+  [SportType.INLINE_SKATE]: "rollerblade",
+  [SportType.KAYAKING]: "kayaking",
+  [SportType.KITESURF]: "kitesurfing",
+  [SportType.MOUNTAIN_BIKE_RIDE]: "bike",
+  [SportType.NORDIC_SKI]: "ski-cross-country",
+  [SportType.PICKLEBALL]: "racquetball",
+  [SportType.PILATES]: "yoga",
+  [SportType.RACQUETBALL]: "racquetball",
+  [SportType.ROCK_CLIMBING]: "carabiner",
+  [SportType.ROLLER_SKI]: "ski-cross-country",
+  [SportType.ROWING]: "rowing",
+  [SportType.SAIL]: "sail-boat",
+  [SportType.SKATEBOARD]: "skateboard",
+  [SportType.SNOWBOARD]: "snowboard",
+  [SportType.SNOWSHOE]: "shoe-print",
+  [SportType.SOCCER]: "soccer",
+  [SportType.SQUASH]: "racquetball",
+  [SportType.STAIR_STEPPER]: "stairs",
+  [SportType.STAND_UP_PADDLING]: "rowing",
+  [SportType.SURFING]: "surfing",
+  [SportType.TABLE_TENNIS]: "table-tennis",
+  [SportType.TENNIS]: "tennis",
+  [SportType.TRAIL_RUN]: "run",
+  [SportType.VELOMOBILE]: "bike",
+  [SportType.VIRTUAL_RIDE]: "bike",
+  [SportType.VIRTUAL_ROW]: "rowing",
+  [SportType.VIRTUAL_RUN]: "run",
+  [SportType.WALK]: "walk",
+  [SportType.WEIGHT_TRAINING]: "weight-lifter",
+  [SportType.WHEELCHAIR]: "wheelchair-accessibility",
+  [SportType.WINDSURF]: "sail-boat",
+  [SportType.WORKOUT]: "arm-flex",
+  [SportType.YOGA]: "yoga",
 };
+
+export const RIDE_SPORT_TYPES = [
+  SportType.RIDE,
+  SportType.GRAVEL_RIDE,
+  SportType.MOUNTAIN_BIKE_RIDE,
+  SportType.E_BIKE_RIDE,
+  SportType.E_MOUNTAIN_BIKE_RIDE,
+  SportType.VIRTUAL_RIDE,
+  SportType.VELOMOBILE,
+  SportType.HANDCYCLE,
+];
+
+export const RUN_SPORT_TYPES = [
+  SportType.RUN,
+  SportType.TRAIL_RUN,
+  SportType.VIRTUAL_RUN,
+];

@@ -1,11 +1,21 @@
 export const Theme = {
   colors: {
     primary: "#fc4c02",
-    white: '#fff',
-    dark: '#000',
-    gray: '#d4d4d4',
-    lightGray: '#F6F6F6',
-    red: '#D30000'
+    primaryDark: "#c43d00",
+    primaryLight: "#ffede4",
+    primaryMuted: "#ffc9af",
+    background: "#f2f3f5",
+    surface: "#ffffff",
+    text: "#15171a",
+    textMuted: "#5c6370",
+    border: "#e3e5e8",
+    control: "#e5e7ea",
+    mapTint: "#e6ece3",
+    white: "#fff",
+    dark: "#000",
+    gray: "#d4d4d4",
+    lightGray: "#F6F6F6",
+    red: "#D30000",
   },
   space: {
     xs: 4,
@@ -15,8 +25,15 @@ export const Theme = {
     xl: 36,
   },
   fonts: {
-    regular: 'ubuntuRegular',
-    bold: 'ubuntuBold'
+    regular: "ubuntuRegular",
+    bold: "ubuntuBold",
   },
   roundness: 8,
+  radius: {
+    s: 8,
+    m: 12,
+    l: 16,
+    xl: 20,
+  },
+  gutter: 20,
 };

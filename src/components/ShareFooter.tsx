@@ -1,18 +1,29 @@
 import { View } from "react-native";
 import { useAppContext } from "../hooks/useAppContext";
-import { Text } from "react-native-paper";
 import { Logo } from "./imgs/Logo";
 import { Theme } from "../theme";
 import { SquareImg } from "./imgs/SquareImg";
+import { AppText } from "./layout/AppText";
 
-export const ShareFooter = () => {
+type Props = {
+  color: string;
+  mutedColor: string;
+  accentColor: string;
+  showAthlete: boolean;
+};
+
+export const ShareFooter = ({
+  color,
+  mutedColor,
+  accentColor,
+  showAthlete,
+}: Props) => {
   const { me } = useAppContext();
 
-  if (!me) {
-    return;
-  }
-
-  const name = me.firstname + (me.lastname ? ` ${me.lastname}` : "");
+  const name = me
+    ? me.firstname + (me.lastname ? ` ${me.lastname}` : "")
+    : undefined;
+  const photo = me?.profile?.startsWith("http") ? me.profile : undefined;
 
   return (
     <View
@@ -29,46 +40,33 @@ export const ShareFooter = () => {
           gap: Theme.space.xs,
         }}
       >
-        <Logo size={36} />
-        <Text
-          variant="labelMedium"
+        <Logo size={28} />
+        <AppText bold size={13} color={accentColor}>
+          Stats-va
+        </AppText>
+      </View>
+
+      {showAthlete && name && (
+        <View
           style={{
-            fontFamily: Theme.fonts.bold,
-            color: Theme.colors.primary,
+            flexDirection: "row",
+            gap: Theme.space.s,
+            alignItems: "center",
           }}
         >
-          Stats-va
-        </Text>
-      </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          gap: Theme.space.xs,
-          alignItems: "center",
-        }}
-      >
-        {me.profile && (
-          <SquareImg
-            size={36}
-            source={{
-              uri: me.profile,
-            }}
-          />
-        )}
-
-        <View>
-          <Text
-            variant="labelMedium"
-            style={{
-              fontFamily: Theme.fonts.bold,
-            }}
-          >
-            {name}
-          </Text>
-          {me?.username && <Text variant="labelMedium">@{me.username}</Text>}
+          <View style={{ alignItems: "flex-end" }}>
+            <AppText bold size={12} color={color}>
+              {name}
+            </AppText>
+            {me?.username && (
+              <AppText size={11} color={mutedColor}>
+                @{me.username}
+              </AppText>
+            )}
+          </View>
+          {photo && <SquareImg size={28} source={{ uri: photo }} />}
         </View>
-      </View>
+      )}
     </View>
   );
 };

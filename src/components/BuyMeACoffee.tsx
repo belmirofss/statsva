@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
-import { Image } from "react-native";
-import { Banner } from "react-native-paper";
+import { Pressable, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BUY_ME_A_COFFEE_URL } from "../constants";
 import { Theme } from "../theme";
-import BUY_ME_A_COFFEEE from "../images/buy_me_a_coffee.png";
+import { AppText } from "./layout/AppText";
 
 const KEY = "STATSVA.BUY_ME_A_COFFEE";
 const SEVEN_DAYS_MS = 1000 * 60 * 60 * 24 * 7;
 
+export const openBuyMeACoffee = () =>
+  WebBrowser.openBrowserAsync(BUY_ME_A_COFFEE_URL);
+
 export const BuyMeACoffe = () => {
   const [visible, setVisible] = useState(false);
 
-  const dismiss = async () => {
+  const dismiss = () => {
     setVisible(false);
     AsyncStorage.setItem(KEY, new Date().toISOString());
   };
-
-  const open = async () =>
-    await WebBrowser.openBrowserAsync(BUY_ME_A_COFFEE_URL);
 
   const loadVisible = async () => {
     const dismissDate: string = (await AsyncStorage.getItem(KEY)) || "";
@@ -32,37 +32,59 @@ export const BuyMeACoffe = () => {
     loadVisible();
   }, []);
 
+  if (!visible) {
+    return null;
+  }
+
   return (
-    <Banner
-      visible={visible}
-      actions={[
-        {
-          label: "No",
-          onPress: dismiss,
-          textColor: Theme.colors.dark,
-        },
-        {
-          label: "Buy me a coffee",
-          onPress: open,
-        },
-      ]}
-      icon={() => (
-        <Image
-          source={BUY_ME_A_COFFEEE}
-          style={{
-            width: 75,
-            height: 75,
-          }}
-        />
-      )}
+    <View
       style={{
-        backgroundColor: Theme.colors.white,
-        borderRadius: Theme.roundness,
+        flexDirection: "row",
+        alignItems: "center",
+        marginHorizontal: Theme.gutter,
+        borderRadius: Theme.radius.l,
+        backgroundColor: Theme.colors.surface,
       }}
-      elevation={0}
     >
-      If you've enjoyed using this app, consider buying me a coffee as a token
-      of appreciation.
-    </Banner>
+      <Pressable
+        onPress={openBuyMeACoffee}
+        accessibilityRole="link"
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          gap: Theme.space.m,
+          minHeight: 56,
+          paddingLeft: Theme.space.m,
+        }}
+      >
+        <MaterialCommunityIcons
+          name="coffee-outline"
+          size={22}
+          color={Theme.colors.primaryDark}
+        />
+        <AppText style={{ flex: 1 }}>
+          <AppText bold>Enjoying Stats-va? </AppText>
+          <AppText color={Theme.colors.textMuted}>Buy me a coffee</AppText>
+        </AppText>
+      </Pressable>
+      <Pressable
+        onPress={dismiss}
+        accessibilityRole="button"
+        accessibilityLabel="Hide for a week"
+        style={{
+          width: 48,
+          height: 56,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <MaterialCommunityIcons
+          name="close"
+          size={20}
+          color={Theme.colors.textMuted}
+        />
+      </Pressable>
+    </View>
   );
 };

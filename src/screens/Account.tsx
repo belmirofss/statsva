@@ -1,59 +1,112 @@
-import NOT_FOUND from "../images/not_found.png";
-import { ScreenContainer } from "../components/layout/ScreenContainer";
-import { Theme } from "../theme";
-import { Button } from "../components/layout/Button";
+import { Pressable, ScrollView, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { View } from "react-native";
+import { Theme } from "../theme";
+import { IconName } from "../constants";
 import { useAppContext } from "../hooks/useAppContext";
-import { Text } from "react-native-paper";
-import { SquareImg } from "../components/imgs/SquareImg";
+import { LargeHeader } from "../components/layout/ScreenHeader";
+import { Card } from "../components/layout/Card";
+import { AppText } from "../components/layout/AppText";
+import { Avatar } from "../components/Avatar";
+import { openBuyMeACoffee } from "../components/BuyMeACoffee";
 
 export const Account = () => {
-  const { me } = useAppContext();
+  const { me, logout } = useAppContext();
   const navigation = useNavigation();
-  const { logout } = useAppContext();
+
+  const name = [me?.firstname, me?.lastname].filter(Boolean).join(" ");
+  const location = [me?.city, me?.state, me?.country].filter(Boolean).join(", ");
+
+  const actions: {
+    icon: IconName;
+    label: string;
+    onPress: () => void;
+    color?: string;
+  }[] = [
+    {
+      icon: "information-outline",
+      label: "About the app",
+      onPress: () => navigation.navigate("About"),
+    },
+    {
+      icon: "coffee-outline",
+      label: "Buy me a coffee",
+      onPress: openBuyMeACoffee,
+    },
+    {
+      icon: "logout",
+      label: "Log out",
+      onPress: logout,
+      color: Theme.colors.red,
+    },
+  ];
 
   return (
-    <ScreenContainer
-      style={{
-        gap: Theme.space.l,
-      }}
+    <ScrollView
+      style={{ flex: 1, backgroundColor: Theme.colors.background }}
+      contentContainerStyle={{ gap: Theme.space.m, paddingBottom: Theme.space.xl }}
     >
-      <View style={{ alignItems: "center", gap: 0 }}>
-        <SquareImg
-          size={144}
-          source={
-            me?.profile
-              ? {
-                  uri: me.profile,
-                }
-              : NOT_FOUND
-          }
-        />
-        <Text
-          variant="bodyLarge"
-          style={{
-            fontFamily: Theme.fonts.bold,
-          }}
-        >
-          {me?.firstname}
-          {me?.lastname ? ` ${me.lastname}` : ""}
-        </Text>
-        {me?.username && <Text variant="bodyLarge">@{me.username}</Text>}
-      </View>
-      <View
+      <LargeHeader title="Profile" />
+
+      <Card
         style={{
-          gap: Theme.space.s,
+          marginHorizontal: Theme.gutter,
+          alignItems: "center",
+          gap: 4,
+          paddingVertical: Theme.space.l,
         }}
       >
-        <Button mode="outlined" onPress={() => navigation.navigate("About")}>
-          About the app
-        </Button>
+        <Avatar athlete={me} size={96} />
+        <AppText bold size={20} style={{ marginTop: Theme.space.s }}>
+          {name}
+        </AppText>
+        {me?.username && (
+          <AppText color={Theme.colors.textMuted}>@{me.username}</AppText>
+        )}
+        {!!location && (
+          <AppText size={13} color={Theme.colors.textMuted}>
+            {location}
+          </AppText>
+        )}
+      </Card>
 
-        <Button color={Theme.colors.red} mode="outlined" onPress={logout}>
-          Logout
-        </Button>
-      </View>
-    </ScreenContainer>
+      <Card style={{ marginHorizontal: Theme.gutter, paddingVertical: 0 }}>
+        {actions.map((action, index) => (
+          <Pressable
+            key={action.label}
+            onPress={action.onPress}
+            accessibilityRole="button"
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: Theme.space.m,
+              minHeight: 56,
+              borderTopWidth: index ? 1 : 0,
+              borderTopColor: Theme.colors.border,
+            }}
+          >
+            <MaterialCommunityIcons
+              name={action.icon}
+              size={22}
+              color={action.color ?? Theme.colors.text}
+            />
+            <AppText
+              size={16}
+              color={action.color ?? Theme.colors.text}
+              style={{ flex: 1 }}
+            >
+              {action.label}
+            </AppText>
+            {!action.color && (
+              <MaterialCommunityIcons
+                name="chevron-right"
+                size={20}
+                color={Theme.colors.textMuted}
+              />
+            )}
+          </Pressable>
+        ))}
+      </Card>
+    </ScrollView>
   );
 };

@@ -25,7 +25,7 @@ export const ScreenContainer = ({
     {
       flex: 1,
       padding: Theme.space.m,
-      backgroundColor: Theme.colors.lightGray,
+      backgroundColor: Theme.colors.background,
     },
     style
   );

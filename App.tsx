@@ -3,7 +3,11 @@ import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  DefaultTheme as NavigationDefaultTheme,
+} from "@react-navigation/native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import ubuntuBold from "./src/fonts/Ubuntu-Bold.ttf";
 import ubuntuRegular from "./src/fonts/Ubuntu-Regular.ttf";
 import { useFonts } from "expo-font";
@@ -30,6 +34,18 @@ const theme = {
       fontFamily: Theme.fonts.regular,
     },
   }),
+};
+
+const navigationTheme = {
+  ...NavigationDefaultTheme,
+  colors: {
+    ...NavigationDefaultTheme.colors,
+    primary: Theme.colors.primary,
+    background: Theme.colors.background,
+    card: Theme.colors.surface,
+    border: Theme.colors.border,
+    text: Theme.colors.text,
+  },
 };
 
 SplashScreen.preventAutoHideAsync();
@@ -60,17 +76,19 @@ export default function App() {
 
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-      <QueryClientProvider client={queryClient}>
-        <PaperProvider theme={theme}>
-          <AppProvider>
-            <NavigationContainer>
-              <Routes />
-            </NavigationContainer>
-          </AppProvider>
+      <SafeAreaProvider>
+        <QueryClientProvider client={queryClient}>
+          <PaperProvider theme={theme}>
+            <AppProvider>
+              <NavigationContainer theme={navigationTheme}>
+                <Routes />
+              </NavigationContainer>
+            </AppProvider>
 
-          <StatusBar hidden />
-        </PaperProvider>
-      </QueryClientProvider>
+            <StatusBar hidden />
+          </PaperProvider>
+        </QueryClientProvider>
+      </SafeAreaProvider>
     </View>
   );
 }

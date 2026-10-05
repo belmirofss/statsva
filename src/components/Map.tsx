@@ -7,9 +7,11 @@ import { CUSTOM_MAP_STYLE } from "../mapStyle";
 
 type Props = {
   polyline: string;
+  /** Defaults to a square map as wide as its container. */
+  height?: number;
 };
 
-export const Map = ({ polyline }: Props) => {
+export const Map = ({ polyline, height }: Props) => {
   const map = useRef<MapView>(null);
 
   const [viewSize, setViewSize] = useState(0);
@@ -34,8 +36,8 @@ export const Map = ({ polyline }: Props) => {
         <View
           style={{
             width: viewSize,
-            minHeight: viewSize,
-            backgroundColor: Theme.colors.gray,
+            minHeight: height ?? viewSize,
+            backgroundColor: Theme.colors.mapTint,
           }}
         >
           <MapView
@@ -43,7 +45,7 @@ export const Map = ({ polyline }: Props) => {
             provider={PROVIDER_GOOGLE}
             style={{
               width: viewSize,
-              height: viewSize,
+              height: height ?? viewSize,
             }}
             showsMyLocationButton={false}
             showsPointsOfInterest={false}
@@ -62,7 +64,7 @@ export const Map = ({ polyline }: Props) => {
             onMapLoaded={() => {
               if (map.current) {
                 map.current.fitToCoordinates(coordinates, {
-                  edgePadding: { top: 10, right: 10, bottom: 10, left: 10 },
+                  edgePadding: { top: 24, right: 24, bottom: 24, left: 24 },
                   animated: false,
                 });
               }
@@ -72,7 +74,7 @@ export const Map = ({ polyline }: Props) => {
             <Polyline
               coordinates={coordinates}
               strokeColor={Theme.colors.primary}
-              strokeWidth={2}
+              strokeWidth={3}
             />
           </MapView>
         </View>

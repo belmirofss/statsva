@@ -1,28 +1,42 @@
-import { View } from "react-native";
-import { Theme } from "../../theme";
-import { Text } from "react-native-paper";
-import { SportPicker } from "../../components/SportPicker";
 import React from "react";
+import { Pressable, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AthleteStats, Period, SportType, TitleAndContent } from "../../types";
-import { PeriodSelector } from "../../components/PeriodSelector";
 import {
-  formatDistance,
-  formatDistancePerHour,
-  formatTime,
+  formatDuration,
+  formatElevation,
+  formatKilometers,
+  formatNumber,
+  formatSpeedForSport,
+  isSwim,
+  speedLabelForSport,
 } from "../../helpers";
-import { Button } from "../../components/layout/Button";
 import {
   PERIOD_TO_LABEL,
+  PERIOD_TO_SHORT_LABEL,
   SPORT_TYPE_TO_ICON,
   SPORT_TYPE_TO_LABEL,
 } from "../../constants";
-import { HomeStatsHeader } from "./HomeStatsHeader";
-import { KeyValueList } from "../../components/layout/KeyValueList";
-import { ShareFooter } from "../../components/ShareFooter";
-import { useShare } from "../../hooks/useShare";
-import ViewShot from "react-native-view-shot";
+import { Theme } from "../../theme";
+import { Card } from "../../components/layout/Card";
+import { AppText } from "../../components/layout/AppText";
+import { SegmentedControl } from "../../components/SegmentedControl";
+import { ChipGroup } from "../../components/ChipGroup";
+import { StatGrid } from "../../components/StatGrid";
+import { ShareSheet } from "../../components/share/ShareSheet";
 
-export const SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE = {
+type StatsSport = SportType.RIDE | SportType.RUN | SportType.SWIM;
+
+const SPORTS: StatsSport[] = [SportType.RIDE, SportType.RUN, SportType.SWIM];
+const PERIODS = [Period.LAST_4_WEEKS, Period.YEAR_TO_DATE, Period.ALL_TIME];
+
+const SPORT_UNIT: { [key in StatsSport]: [string, string] } = {
+  [SportType.RIDE]: ["ride", "rides"],
+  [SportType.RUN]: ["run", "runs"],
+  [SportType.SWIM]: ["swim", "swims"],
+};
+
+const TOTALS = {
   [SportType.RIDE]: {
     [Period.ALL_TIME]: (data: AthleteStats) => data.all_ride_totals,
     [Period.YEAR_TO_DATE]: (data: AthleteStats) => data.ytd_ride_totals,
@@ -45,112 +59,139 @@ type Props = {
 };
 
 export const HomeStats = ({ stats }: Props) => {
-  const [sportSelected, setSportSelected] = React.useState<
-    SportType.RIDE | SportType.RUN | SportType.SWIM
-  >(SportType.RIDE);
-  const [periodSelected, setPeriodSelected] = React.useState(
-    Period.LAST_4_WEEKS
-  );
+  const [sport, setSport] = React.useState<StatsSport>(SportType.RIDE);
+  const [period, setPeriod] = React.useState(Period.LAST_4_WEEKS);
+  const [isShareOpen, setIsShareOpen] = React.useState(false);
 
-  const { viewShotRef, openShareDialog } = useShare();
+  const totals = TOTALS[sport][period](stats);
+  const averageSpeed = totals.moving_time
+    ? totals.distance / totals.moving_time
+    : undefined;
+  const achievements = (totals as { achievement_count?: number })
+    .achievement_count;
 
-  const { distance, moving_time, elevation_gain } =
-    SPORT_TYPE_BY_PERIOD_TO_TOTALS_VALUE[sportSelected][periodSelected](stats);
+  const distance = formatKilometers(totals.distance) ?? "0";
+  const [singular, plural] = SPORT_UNIT[sport];
+  const countText = `${formatNumber(totals.count)} ${
+    totals.count === 1 ? singular : plural
+  }`;
+  const countLine = `${countText} · ${PERIOD_TO_LABEL[period].toLowerCase()}`;
 
-  const keyValueList: TitleAndContent[] = [
+  const items: TitleAndContent[] = [
+    { title: "Moving time", content: formatDuration(totals.moving_time) ?? "0m" },
     {
-      title: "Distance",
-      content: formatDistance(distance),
+      title: speedLabelForSport(sport),
+      content: formatSpeedForSport(sport, averageSpeed),
     },
     {
-      title: "Moving time",
-      content: formatTime(moving_time),
+      title: "Elevation",
+      content: isSwim(sport)
+        ? undefined
+        : formatElevation(totals.elevation_gain) ?? "0 m",
     },
+    { title: "Elapsed time", content: formatDuration(totals.elapsed_time) },
+    { title: "Activities", content: formatNumber(totals.count) },
     {
-      title: "Speed",
-      content: formatDistancePerHour(distance, moving_time),
+      title: "Achievements",
+      content: achievements ? formatNumber(achievements) : undefined,
     },
   ];
 
-  if (sportSelected !== SportType.SWIM) {
-    keyValueList.push({
-      title: "Elevation",
-      content: formatDistance(elevation_gain),
-    });
-  }
-
-  if (sportSelected === SportType.RIDE && periodSelected === Period.ALL_TIME) {
-    keyValueList.push({
-      title: "Biggest distance",
-      content: formatDistance(stats.biggest_ride_distance),
-    });
-  }
-
   return (
-    <View
-      style={{
-        gap: Theme.space.m,
-        borderRadius: Theme.roundness,
-        backgroundColor: Theme.colors.white,
-      }}
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: Theme.space.m,
-          paddingTop: Theme.space.m,
-        }}
-      >
-        <Text variant="titleLarge" style={{ fontFamily: Theme.fonts.bold }}>
-          Stats for{" "}
-        </Text>
-        <SportPicker
-          selectedValue={sportSelected}
-          onSelection={setSportSelected}
+    <View style={{ gap: Theme.space.m }}>
+      <View style={{ paddingHorizontal: Theme.gutter }}>
+        <SegmentedControl
+          value={sport}
+          onChange={setSport}
+          options={SPORTS.map((value) => ({
+            value,
+            label: SPORT_TYPE_TO_LABEL[value],
+            icon: SPORT_TYPE_TO_ICON[value],
+          }))}
         />
       </View>
 
-      <View style={{ paddingHorizontal: Theme.space.m }}>
-        <PeriodSelector value={periodSelected} onChanges={setPeriodSelected} />
-      </View>
-
-      <ViewShot
-        ref={viewShotRef}
-        options={{
-          format: "jpg",
-          quality: 1,
-          fileName: `Stats-va - My Stats`,
+      <Card
+        style={{
+          marginHorizontal: Theme.gutter,
+          paddingHorizontal: Theme.gutter,
+          paddingBottom: Theme.gutter,
+          gap: Theme.space.m,
         }}
       >
         <View
           style={{
-            gap: Theme.space.s,
-            backgroundColor: Theme.colors.white,
-            padding: Theme.space.m,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          <HomeStatsHeader
-            title={SPORT_TYPE_TO_LABEL[sportSelected]}
-            subTitle={PERIOD_TO_LABEL[periodSelected]}
-            renderIcon={SPORT_TYPE_TO_ICON[sportSelected]}
+          <ChipGroup
+            value={period}
+            onChange={setPeriod}
+            options={PERIODS.map((value) => ({
+              value,
+              label: PERIOD_TO_SHORT_LABEL[value],
+            }))}
           />
-
-          <KeyValueList data={keyValueList} />
-          <View style={{ marginTop: Theme.space.xs }}>
-            <ShareFooter />
-          </View>
+          <Pressable
+            onPress={() => setIsShareOpen(true)}
+            accessibilityRole="button"
+            accessibilityLabel="Share these stats"
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              borderWidth: 1,
+              borderColor: Theme.colors.border,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="export-variant"
+              size={20}
+              color={Theme.colors.text}
+            />
+          </Pressable>
         </View>
-      </ViewShot>
 
-      <View
-        style={{
-          paddingHorizontal: Theme.space.m,
-          paddingBottom: Theme.space.m,
+        <View style={{ gap: 4 }}>
+          <View
+            style={{ flexDirection: "row", alignItems: "baseline", gap: 6 }}
+          >
+            <AppText bold size={54} style={{ letterSpacing: -1.6 }}>
+              {distance}
+            </AppText>
+            <AppText size={20} color={Theme.colors.textMuted}>
+              km
+            </AppText>
+          </View>
+          <AppText color={Theme.colors.textMuted}>{countLine}</AppText>
+        </View>
+
+        <View
+          style={{
+            borderTopWidth: 1,
+            borderTopColor: Theme.colors.border,
+            paddingTop: Theme.space.m,
+          }}
+        >
+          <StatGrid items={items} />
+        </View>
+      </Card>
+
+      <ShareSheet
+        visible={isShareOpen}
+        onDismiss={() => setIsShareOpen(false)}
+        fileName="Stats-va - My Stats"
+        content={{
+          eyebrow: SPORT_TYPE_TO_LABEL[sport],
+          eyebrowRight: PERIOD_TO_LABEL[period],
+          hero: { value: distance, unit: "km", caption: countText },
+          stats: items.filter(({ title }) => title !== "Activities"),
         }}
-      >
-        <Button onPress={openShareDialog}>Share</Button>
-      </View>
+      />
     </View>
   );
 };

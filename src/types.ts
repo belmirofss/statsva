@@ -167,18 +167,77 @@ type Photo = {
   urls: { [key: string]: string };
 };
 
+export type Split = {
+  split: number;
+  distance: number;
+  elapsed_time: number;
+  moving_time: number;
+  elevation_difference: number | null;
+  average_speed: number;
+  average_heartrate?: number;
+};
+
+export type Lap = {
+  id: number;
+  name: string;
+  lap_index: number;
+  distance: number;
+  elapsed_time: number;
+  moving_time: number;
+  average_speed: number;
+  max_speed: number;
+  total_elevation_gain: number;
+  average_heartrate?: number;
+};
+
+export type BestEffort = {
+  id: number;
+  name: string;
+  distance: number;
+  elapsed_time: number;
+  moving_time: number;
+  pr_rank: number | null;
+};
+
+type SummaryGear = {
+  id: string;
+  name: string;
+  distance: number;
+};
+
 export type Activity = SummaryActivity & {
   map: ActivityMap & { polyline: string };
-  average_cadence: number;
-  average_temp: number;
-  max_watts: number;
-  description: string;
+  average_cadence?: number;
+  average_temp?: number;
+  max_watts?: number;
+  weighted_average_watts?: number;
+  description: string | null;
   calories: number | undefined;
+  device_name?: string;
+  gear?: SummaryGear | null;
+  kudos_count: number;
+  comment_count: number;
+  pr_count: number;
+  suffer_score?: number | null;
+  splits_metric?: Split[];
+  laps?: Lap[];
+  best_efforts?: BestEffort[];
   segment_efforts: SegmentEffort[];
   photos: {
     primary: Photo;
   };
 };
+
+export type StreamType =
+  | "distance"
+  | "altitude"
+  | "heartrate"
+  | "velocity_smooth"
+  | "watts";
+
+export type ActivityStreams = Partial<
+  Record<StreamType, { data: number[]; original_size: number }>
+>;
 
 export enum Period {
   ALL_TIME = "ALL_TIME",
