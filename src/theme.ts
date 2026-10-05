@@ -10,7 +10,7 @@ export const Theme = {
     textMuted: "#5c6370",
     border: "#e3e5e8",
     control: "#e5e7ea",
-    mapTint: "#e6ece3",
+    mapTint: "#f3f3f0",
     white: "#fff",
     dark: "#000",
     gray: "#d4d4d4",

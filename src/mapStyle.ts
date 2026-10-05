@@ -1,239 +1,73 @@
-export const CUSTOM_MAP_STYLE = [
+import { MapStyleElement } from "react-native-maps";
+
+/**
+ * "Quiet": pale land, soft parks and water, minimal labels, so the orange
+ * route is the loudest thing on the map. Only applies to the standard map
+ * type; satellite imagery can't be restyled.
+ */
+export const QUIET_MAP_STYLE: MapStyleElement[] = [
+  { elementType: "geometry", stylers: [{ color: "#f3f3f0" }] },
+  { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#7e848d" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#f3f3f0" }] },
   {
-      "featureType": "landscape.man_made",
-      "elementType": "geometry.fill",
-      "stylers": [
-          {
-              "color": "#ece2d9"
-          }
-      ]
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [{ visibility: "off" }],
   },
   {
-      "featureType": "landscape.natural",
-      "elementType": "geometry.fill",
-      "stylers": [
-          {
-              "visibility": "on"
-          },
-          {
-              "color": "#b8cb93"
-          }
-      ]
+    featureType: "administrative.land_parcel",
+    stylers: [{ visibility: "off" }],
   },
   {
-      "featureType": "poi",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
+    featureType: "administrative.neighborhood",
+    stylers: [{ visibility: "off" }],
+  },
+  { featureType: "poi", stylers: [{ visibility: "off" }] },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [{ visibility: "on" }, { color: "#e2ecdb" }],
   },
   {
-      "featureType": "poi.attraction",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "on"
-          }
-      ]
+    featureType: "landscape.natural",
+    elementType: "geometry",
+    stylers: [{ color: "#ebf0e5" }],
   },
   {
-      "featureType": "poi.attraction",
-      "elementType": "labels.icon",
-      "stylers": [
-          {
-              "visibility": "on"
-          }
-      ]
+    featureType: "road",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#ffffff" }],
   },
   {
-      "featureType": "poi.business",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#e1e1dc" }],
   },
   {
-      "featureType": "poi.business",
-      "elementType": "labels.icon",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
+    featureType: "road.local",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }],
   },
   {
-      "featureType": "poi.government",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
+    featureType: "road.arterial",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }],
   },
   {
-      "featureType": "poi.medical",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#d9d9d3" }],
+  },
+  { featureType: "transit", stylers: [{ visibility: "off" }] },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#cfe1ee" }],
   },
   {
-      "featureType": "poi.park",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "on"
-          }
-      ]
+    featureType: "water",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#8fa6b8" }],
   },
-  {
-      "featureType": "poi.park",
-      "elementType": "geometry.fill",
-      "stylers": [
-          {
-              "color": "#ccdca1"
-          }
-      ]
-  },
-  {
-      "featureType": "poi.park",
-      "elementType": "labels.icon",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
-  },
-  {
-      "featureType": "poi.place_of_worship",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
-  },
-  {
-      "featureType": "poi.school",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
-  },
-  {
-      "featureType": "poi.sports_complex",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "on"
-          }
-      ]
-  },
-  {
-      "featureType": "road",
-      "elementType": "geometry.fill",
-      "stylers": [
-          {
-              "hue": "#ff0000"
-          },
-          {
-              "saturation": -100
-          },
-          {
-              "lightness": 99
-          }
-      ]
-  },
-  {
-      "featureType": "road",
-      "elementType": "geometry.stroke",
-      "stylers": [
-          {
-              "color": "#808080"
-          },
-          {
-              "lightness": 54
-          }
-      ]
-  },
-  {
-      "featureType": "road",
-      "elementType": "labels.text.fill",
-      "stylers": [
-          {
-              "color": "#767676"
-          }
-      ]
-  },
-  {
-      "featureType": "road",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-          {
-              "color": "#ffffff"
-          }
-      ]
-  },
-  {
-      "featureType": "transit.station",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
-  },
-  {
-      "featureType": "transit.station.airport",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "on"
-          }
-      ]
-  },
-  {
-      "featureType": "transit.station.bus",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
-  },
-  {
-      "featureType": "transit.station.rail",
-      "elementType": "all",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
-  },
-  {
-      "featureType": "water",
-      "elementType": "all",
-      "stylers": [
-          {
-              "saturation": 43
-          },
-          {
-              "lightness": -11
-          },
-          {
-              "hue": "#0069ff"
-          },
-          {
-              "visibility": "on"
-          }
-      ]
-  }
 ];

@@ -48,6 +48,7 @@ export const Activity = () => {
   const insets = useSafeAreaInsets();
   const { scrollY, onScroll } = useCollapsingHeader();
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [isSatellite, setIsSatellite] = useState(false);
 
   const { data: activity, isLoading, isError } = useActivity({ id: params.id });
   const { data: streams } = useActivityStreams({
@@ -71,7 +72,34 @@ export const Activity = () => {
             contentContainerStyle={{ paddingBottom: 120 + insets.bottom }}
           >
             <View style={{ height: heroHeight }}>
-              {polyline && <Map polyline={polyline} height={MAP_HEIGHT} />}
+              {polyline && (
+                <Map
+                  polyline={polyline}
+                  height={MAP_HEIGHT}
+                  satellite={isSatellite}
+                  showKmMarkers
+                  edgePadding={{
+                    top: insets.top + 64,
+                    right: 32,
+                    bottom: 48,
+                    left: 32,
+                  }}
+                />
+              )}
+              {polyline && (
+                <View
+                  style={{
+                    position: "absolute",
+                    top: insets.top + 6,
+                    right: 12,
+                  }}
+                >
+                  <MapTypeToggle
+                    satellite={isSatellite}
+                    onChange={setIsSatellite}
+                  />
+                </View>
+              )}
             </View>
 
             <View
@@ -187,3 +215,58 @@ export const Activity = () => {
     </View>
   );
 };
+
+type MapTypeToggleProps = {
+  satellite: boolean;
+  onChange: (satellite: boolean) => void;
+};
+
+const MapTypeToggle = ({ satellite, onChange }: MapTypeToggleProps) => (
+  <View
+    accessibilityRole="radiogroup"
+    accessibilityLabel="Map type"
+    style={{
+      height: 44,
+      padding: 4,
+      flexDirection: "row",
+      gap: 2,
+      borderRadius: 22,
+      backgroundColor: Theme.colors.surface,
+      elevation: 3,
+      shadowColor: Theme.colors.text,
+      shadowOpacity: 0.16,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 2 },
+    }}
+  >
+    {[
+      { label: "Map", value: false },
+      { label: "Satellite", value: true },
+    ].map((option) => {
+      const active = option.value === satellite;
+      return (
+        <Pressable
+          key={option.label}
+          onPress={() => onChange(option.value)}
+          accessibilityRole="radio"
+          accessibilityState={{ checked: active }}
+          style={{
+            height: 36,
+            paddingHorizontal: 12,
+            borderRadius: 18,
+            justifyContent: "center",
+            backgroundColor: active ? Theme.colors.primary : "transparent",
+          }}
+        >
+          <AppText
+            bold
+            size={13}
+            color={active ? Theme.colors.white : Theme.colors.text}
+          >
+            {option.label}
+          </AppText>
+        </Pressable>
+      );
+    })}
+  </View>
+);
