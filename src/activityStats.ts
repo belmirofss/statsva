@@ -8,16 +8,26 @@ import {
 } from "./helpers";
 import { SummaryActivity } from "./types";
 
-/** Up to three short values for compact rows and cards. */
-export function summaryStats(activity: SummaryActivity): string[] {
-  const third = usesPace(activity.sport_type)
-    ? formatSpeedForSport(activity.sport_type, activity.average_speed)
-    : formatElevation(activity.total_elevation_gain) ??
-      formatSpeedForSport(activity.sport_type, activity.average_speed);
+export type SummaryStat = { label: string; value: string };
+
+/** Up to three short labelled values for compact rows and cards. */
+export function summaryStats(activity: SummaryActivity): SummaryStat[] {
+  const pace = usesPace(activity.sport_type);
+  const speed = {
+    label: pace ? "Pace" : "Avg speed",
+    value: formatSpeedForSport(activity.sport_type, activity.average_speed),
+  };
+  const elevation = {
+    label: "Elevation",
+    value: formatElevation(activity.total_elevation_gain),
+  };
+  const third = pace || !elevation.value ? speed : elevation;
 
   return [
-    formatDistance(activity.distance),
-    formatDuration(activity.moving_time),
-    third ?? formatHeartrate(activity.average_heartrate),
-  ].filter((value): value is string => !!value);
+    { label: "Distance", value: formatDistance(activity.distance) },
+    { label: "Time", value: formatDuration(activity.moving_time) },
+    third.value
+      ? third
+      : { label: "Avg HR", value: formatHeartrate(activity.average_heartrate) },
+  ].filter((stat): stat is SummaryStat => !!stat.value);
 }

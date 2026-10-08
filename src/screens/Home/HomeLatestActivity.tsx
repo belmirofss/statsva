@@ -77,10 +77,15 @@ export const HomeLatestActivity = ({ activity }: Props) => {
             {activity.name}
           </AppText>
           <View style={{ flexDirection: "row", gap: 18 }}>
-            {summaryStats(activity).map((value) => (
-              <AppText key={value} bold size={15}>
-                {value}
-              </AppText>
+            {summaryStats(activity).map(({ label, value }) => (
+              <View key={label} style={{ gap: 2 }}>
+                <AppText size={12} color={Theme.colors.textMuted}>
+                  {label}
+                </AppText>
+                <AppText bold size={15}>
+                  {value}
+                </AppText>
+              </View>
             ))}
           </View>
         </View>
