@@ -9,12 +9,14 @@ export type ShareCardPrefs = {
   style: ShareCardStyle;
   showRoute: boolean;
   showAthlete: boolean;
+  showWeather: boolean;
 };
 
 const DEFAULT_PREFS: ShareCardPrefs = {
   style: "light",
   showRoute: true,
   showAthlete: true,
+  showWeather: true,
 };
 
 /** The last share-card setup, remembered between sessions. */

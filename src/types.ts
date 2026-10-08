@@ -128,6 +128,8 @@ export type SummaryActivity = {
   total_elevation_gain: number;
   total_photo_count: number;
   trainer: boolean;
+  gear_id?: string | null;
+  suffer_score?: number | null;
 };
 
 export type Segment = {
@@ -157,6 +159,7 @@ export type SegmentEffort = {
   average_cadence: number;
   average_watts: number;
   segment: Segment;
+  activity?: { id: number };
   kom_rank: number | null;
   pr_rank: number | null;
   achievements: string[];

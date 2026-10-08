@@ -11,8 +11,30 @@ import { Theme } from "./theme";
 import { Account } from "./screens/Account";
 import { Activity } from "./screens/Activity/Activity";
 import { IconName } from "./constants";
+import { Insights } from "./screens/Insights/Insights";
+import { YearInReview } from "./screens/Insights/YearInReview";
+import { Streaks } from "./screens/Insights/Streaks";
+import { Compare } from "./screens/Insights/Compare";
+import { Perspective } from "./screens/Insights/Perspective";
+import { Fitness } from "./screens/Insights/Fitness";
+import { TimeOfDay } from "./screens/Insights/TimeOfDay";
+import { Explorer } from "./screens/Insights/Explorer";
+import { Gear } from "./screens/Gear";
+import { Segment } from "./screens/Segment";
 
 const Stack = createStackNavigator();
+
+/** Pushed screens that draw their own header (see `DetailScreen`). */
+const DETAIL_SCREENS = [
+  { name: "Streaks", component: Streaks },
+  { name: "Compare", component: Compare },
+  { name: "Perspective", component: Perspective },
+  { name: "Fitness", component: Fitness },
+  { name: "TimeOfDay", component: TimeOfDay },
+  { name: "Explorer", component: Explorer },
+  { name: "Gear", component: Gear },
+  { name: "Segment", component: Segment },
+] as const;
 const Tab = createBottomTabNavigator();
 
 const stackHeaderOptions = {
@@ -101,6 +123,15 @@ const AuthenticatedBottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
+        name="Insights"
+        component={Insights}
+        options={{
+          tabBarIcon: (props) => (
+            <TabIcon icon="chart-box-outline" focusedIcon="chart-box" {...props} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Account"
         component={Account}
         options={{
@@ -133,6 +164,19 @@ export const Routes = () => {
           component={Activity}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="YearInReview"
+          component={YearInReview}
+          options={{ headerShown: false, presentation: "modal" }}
+        />
+        {DETAIL_SCREENS.map(({ name, component }) => (
+          <Stack.Screen
+            key={name}
+            name={name}
+            component={component}
+            options={{ headerShown: false }}
+          />
+        ))}
         <Stack.Screen name="About" component={About} />
       </Stack.Navigator>
     );

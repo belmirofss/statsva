@@ -132,6 +132,7 @@ export const ShareSheet = ({ visible, onDismiss, fileName, content }: Props) => 
                   cardStyle={prefs.style}
                   showRoute={prefs.showRoute}
                   showAthlete={prefs.showAthlete}
+                  showWeather={prefs.showWeather}
                 />
               </ViewShot>
             </View>
@@ -208,18 +209,26 @@ export const ShareSheet = ({ visible, onDismiss, fileName, content }: Props) => 
                 paddingHorizontal: Theme.space.m,
               }}
             >
-              {content.polyline && (
+              {(content.polyline || content.routes) && (
                 <ToggleRow
-                  label="Show route"
+                  label={content.routes ? "Show routes" : "Show route"}
                   value={prefs.showRoute}
                   onChange={(showRoute) => updatePrefs({ showRoute })}
+                />
+              )}
+              {content.weather && (
+                <ToggleRow
+                  label="Show weather"
+                  value={prefs.showWeather}
+                  onChange={(showWeather) => updatePrefs({ showWeather })}
+                  divided={!!(content.polyline || content.routes)}
                 />
               )}
               <ToggleRow
                 label="Show my name and photo"
                 value={prefs.showAthlete}
                 onChange={(showAthlete) => updatePrefs({ showAthlete })}
-                divided={!!content.polyline}
+                divided={!!(content.polyline || content.routes || content.weather)}
               />
             </View>
           </ScrollView>

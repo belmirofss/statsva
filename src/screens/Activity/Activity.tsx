@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Animated, Pressable, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
@@ -22,10 +22,16 @@ import { AdBanner } from "../../components/AdBanner";
 import { ShareSheet } from "../../components/share/ShareSheet";
 import { useActivity } from "../../hooks/useActivity";
 import { useActivityStreams } from "../../hooks/useActivityStreams";
+import { useActivityWeather } from "../../hooks/useActivityWeather";
+import { SegmentedControl } from "../../components/SegmentedControl";
+import { decoupling, pacing, predictRaces } from "../../insights/runAnalysis";
+import { isRun } from "../../insights/sports";
 import { AD_BANNER_ACTIVITY_UNIT_ID } from "../../constants";
 import { Theme } from "../../theme";
 import { ActivityTitle } from "./ActivityTitle";
 import { ActivityCharts } from "./ActivityCharts";
+import { ActivityWeather, formatWeather } from "./ActivityWeather";
+import { ActivityAnalysis } from "./ActivityAnalysis";
 import {
   ActivityBestEfforts,
   ActivityLaps,
@@ -49,12 +55,26 @@ export const Activity = () => {
   const { scrollY, onScroll } = useCollapsingHeader();
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isSatellite, setIsSatellite] = useState(false);
+  const [tab, setTab] = useState<"overview" | "analysis">("overview");
 
   const { data: activity, isLoading, isError } = useActivity({ id: params.id });
   const { data: streams } = useActivityStreams({
     id: params.id,
     enabled: !!activity && !activity.manual,
   });
+
+  const { data: weather } = useActivityWeather(activity);
+
+  const analysis = useMemo(() => {
+    if (!activity || !isRun(activity.sport_type)) return undefined;
+    const result = {
+      pacing: pacing(activity),
+      decoupling: streams ? decoupling(streams) : undefined,
+      prediction: predictRaces(activity),
+    };
+    return result.pacing || result.decoupling || result.prediction ? result : undefined;
+  }, [activity, streams]);
+  const showAnalysis = !!analysis && tab === "analysis";
 
   const polyline = activity?.map?.polyline || activity?.map?.summary_polyline;
   const heroHeight = polyline ? MAP_HEIGHT : insets.top + 64;
@@ -115,15 +135,32 @@ export const Activity = () => {
             >
               <ActivityTitle activity={activity} />
               <StatGrid variant="tiles" columns={2} items={mainStats(activity)} />
-              {streams && <ActivityCharts streams={streams} />}
-              <View>
-                <SectionTitle title="Details" inset={false} />
-                <DetailList items={detailStats(activity)} />
-              </View>
-              <ActivitySplits activity={activity} />
-              <ActivityBestEfforts activity={activity} />
-              <ActivityLaps activity={activity} />
-              <ActivitySegments activity={activity} />
+              {analysis && (
+                <SegmentedControl
+                  value={tab}
+                  onChange={setTab}
+                  options={[
+                    { value: "overview", label: "Overview" },
+                    { value: "analysis", label: "Analysis" },
+                  ]}
+                />
+              )}
+              {showAnalysis ? (
+                <ActivityAnalysis activity={activity} {...analysis} />
+              ) : (
+                <>
+                  {weather && <ActivityWeather weather={weather} />}
+                  {streams && <ActivityCharts streams={streams} />}
+                  <View>
+                    <SectionTitle title="Details" inset={false} />
+                    <DetailList items={detailStats(activity)} />
+                  </View>
+                  <ActivitySplits activity={activity} />
+                  <ActivityBestEfforts activity={activity} />
+                  <ActivityLaps activity={activity} />
+                  <ActivitySegments activity={activity} />
+                </>
+              )}
             </View>
 
             <View style={{ marginTop: Theme.space.m }}>
@@ -180,7 +217,10 @@ export const Activity = () => {
             visible={isShareOpen}
             onDismiss={() => setIsShareOpen(false)}
             fileName={`Stats-va - Activity ${activity.id}`}
-            content={shareContent(activity)}
+            content={{
+              ...shareContent(activity),
+              weather: weather ? formatWeather(weather) : undefined,
+            }}
           />
         </>
       )}

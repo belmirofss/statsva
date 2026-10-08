@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Pressable, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { Activity } from "../../types";
 import { Theme } from "../../theme";
 import {
@@ -27,10 +29,14 @@ type RowProps = {
   value?: string;
   badge?: string;
   divided: boolean;
+  onPress?: () => void;
 };
 
-const EffortRow = ({ title, subtitle, value, badge, divided }: RowProps) => (
-  <View
+const EffortRow = ({ title, subtitle, value, badge, divided, onPress }: RowProps) => (
+  <Pressable
+    onPress={onPress}
+    disabled={!onPress}
+    accessibilityRole={onPress ? "button" : undefined}
     style={{
       flexDirection: "row",
       alignItems: "center",
@@ -72,7 +78,15 @@ const EffortRow = ({ title, subtitle, value, badge, divided }: RowProps) => (
         {value}
       </AppText>
     )}
-  </View>
+    {onPress && (
+      <MaterialCommunityIcons
+        name="chevron-right"
+        size={20}
+        color={Theme.colors.textMuted}
+        style={{ marginLeft: -8 }}
+      />
+    )}
+  </Pressable>
 );
 
 type Props = {
@@ -200,6 +214,7 @@ export const ActivityLaps = ({ activity }: Props) => {
 };
 
 export const ActivitySegments = ({ activity }: Props) => {
+  const navigation = useNavigation();
   const [showAll, setShowAll] = useState(false);
   const efforts = activity.segment_efforts ?? [];
   if (!efforts.length) {
@@ -229,6 +244,15 @@ export const ActivitySegments = ({ activity }: Props) => {
               ""
             }
             divided={index > 0}
+            onPress={
+              effort.segment
+                ? () =>
+                    navigation.navigate("Segment", {
+                      id: effort.segment.id,
+                      name: effort.segment.name,
+                    })
+                : undefined
+            }
           />
         ))}
         {efforts.length > SEGMENTS_PREVIEW && (

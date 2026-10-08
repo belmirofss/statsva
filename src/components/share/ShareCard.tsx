@@ -57,6 +57,10 @@ export type ShareCardContent = {
   title?: string;
   hero?: { value: string; unit: string; caption?: string };
   polyline?: string;
+  /** Several routes drawn as a grid, for posters. */
+  routes?: string[];
+  /** Conditions at the start, e.g. "27° · Clear sky". */
+  weather?: string;
   stats: TitleAndContent[];
 };
 
@@ -64,9 +68,42 @@ type Props = ShareCardContent & {
   cardStyle: ShareCardStyle;
   showRoute: boolean;
   showAthlete: boolean;
+  showWeather: boolean;
 };
 
 const ROUTE_HEIGHT = 170;
+const GRID_GAP = 6;
+
+/** Up to 36 routes as small line art tiles, as many columns as reads well. */
+const RouteGrid = ({
+  routes,
+  width,
+  color,
+}: {
+  routes: string[];
+  width: number;
+  color: string;
+}) => {
+  const shown = routes.slice(0, 36);
+  const columns = shown.length <= 4 ? 2 : shown.length <= 9 ? 3 : shown.length <= 16 ? 4 : shown.length <= 25 ? 5 : 6;
+  const size = (width - GRID_GAP * (columns - 1)) / columns;
+
+  return (
+    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: GRID_GAP }}>
+      {shown.map((route, index) => (
+        <RouteArt
+          key={index}
+          polyline={route}
+          width={size}
+          height={size}
+          color={color}
+          strokeWidth={columns > 4 ? 1.5 : 2}
+          padding={4}
+        />
+      ))}
+    </View>
+  );
+};
 
 export const ShareCard = ({
   eyebrow,
@@ -74,10 +111,13 @@ export const ShareCard = ({
   title,
   hero,
   polyline,
+  routes,
+  weather,
   stats,
   cardStyle,
   showRoute,
   showAthlete,
+  showWeather,
 }: Props) => {
   const theme = SHARE_CARD_THEMES[cardStyle];
   const [width, setWidth] = useState(0);
@@ -114,9 +154,23 @@ export const ShareCard = ({
         />
       )}
 
+      {showRoute && routes && width > 0 && (
+        <RouteGrid
+          routes={routes}
+          width={width - Theme.gutter * 2}
+          color={theme.route}
+        />
+      )}
+
       {title && (
         <AppText bold size={26} color={theme.text} style={{ lineHeight: 30 }}>
           {title}
+        </AppText>
+      )}
+
+      {showWeather && weather && (
+        <AppText bold size={14} color={theme.muted} style={{ marginTop: -8 }}>
+          {weather}
         </AppText>
       )}
 
