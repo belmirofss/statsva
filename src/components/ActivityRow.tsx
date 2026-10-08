@@ -75,11 +75,14 @@ export const ActivityRow = React.memo(
           <AppText bold size={16} numberOfLines={1}>
             {activity.name}
           </AppText>
-          <View style={{ flexDirection: "row", gap: 12 }}>
-            {summaryStats(activity).map((value) => (
-              <AppText key={value} size={13}>
-                {value}
-              </AppText>
+          <View style={{ flexDirection: "row", gap: 14 }}>
+            {summaryStats(activity).map(({ label, value }) => (
+              <View key={label}>
+                <AppText size={11} color={Theme.colors.textMuted}>
+                  {label}
+                </AppText>
+                <AppText size={13}>{value}</AppText>
+              </View>
             ))}
           </View>
         </View>

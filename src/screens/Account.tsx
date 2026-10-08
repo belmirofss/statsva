@@ -24,6 +24,11 @@ export const Account = () => {
     color?: string;
   }[] = [
     {
+      icon: "shoe-sneaker",
+      label: "Gear",
+      onPress: () => navigation.navigate("Gear"),
+    },
+    {
       icon: "information-outline",
       label: "About the app",
       onPress: () => navigation.navigate("About"),
